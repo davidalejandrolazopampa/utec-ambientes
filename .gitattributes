@@ -1,3 +1,7 @@
 # El dump de datos es un artefacto generado por pg_dump: no debe contar
 # en las estadísticas de lenguaje ni expandirse en los diffs de GitHub.
 db/dump/utec_labs.sql linguist-generated=true
+
+# El baseline de Flyway también se genera con pg_dump (datos semilla incluidos):
+# no representa código escrito a mano, no debe dominar las estadísticas de lenguaje.
+backend/src/main/resources/db/migration/V1__baseline.sql linguist-generated=true
