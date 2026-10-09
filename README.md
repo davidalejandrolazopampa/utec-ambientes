@@ -40,9 +40,9 @@
 <td width="33%" valign="top"><img src="docs/manuales/manual-img/al-07-calendario.png" alt="Calendario académico"><br><sub><b>Calendario académico</b> · clases, reservas y bloqueos</sub></td>
 </tr>
 <tr>
-<td width="33%" valign="top"><img src="docs/manuales/manual-img/ad-02-detalle-qr.png" alt="Check-in por QR"><br><sub><b>Check-in por QR</b> · validación de uso presencial</sub></td>
-<td width="33%" valign="top"><img src="docs/manuales/manual-img/dash-03-mapacalor.png" alt="Heatmap de ocupación"><br><sub><b>Heatmap de ocupación</b> · banda de saturación</sub></td>
-<td width="33%" valign="top"><img src="docs/manuales/manual-img/ad-09-programacion.png" alt="Programación académica"><br><sub><b>Programación académica</b> · import de horarios y aulas</sub></td>
+<td width="33%" valign="top"><img src="docs/manuales/manual-img/ad-02-detalle-qr.png" alt="QR por recurso para check-in"><br><sub><b>QR por recurso</b> · check-in de uso presencial</sub></td>
+<td width="33%" valign="top"><img src="docs/manuales/manual-img/dash-03-mapacalor.png" alt="Heatmap de ocupación"><br><sub><b>Heatmap de ocupación</b> · franja de saturación</sub></td>
+<td width="33%" valign="top"><img src="docs/manuales/manual-img/ad-06-organizacion.png" alt="Organización académica"><br><sub><b>Organización</b> · jerarquía académica y personas</sub></td>
 </tr>
 </table>
 </div>
