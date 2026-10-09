@@ -1,7 +1,7 @@
 # 17. Guía visual de flujos (diagramas de flujo)
 
 > Diagramas de flujo paso a paso para **usar el software sin errores**. Cada flujo muestra las acciones (azul), las decisiones (ámbar), las correcciones ante error (rojo) y el inicio/fin (verde/gris).
-> Versión narrada paso a paso en el [Manual del Alumno](15a-manual-alumnos.md) y el [Manual del Administrativo](15b-manual-administrativos.md); flujos internos del sistema en [Diagramas de Actividades](06-diagrama-actividades.md).
+> Versión narrada paso a paso en el [Manual del Alumno](manuales/15a-manual-alumnos.md) y el [Manual del Administrativo](manuales/15b-manual-administrativos.md); flujos internos del sistema en [Diagramas de Actividades](06-diagrama-actividades.md).
 
 **Leyenda:** 🟢 Inicio · 🔵 Acción · 🟠 Decisión · 🔴 Corrección (qué hacer si falla) · ⚪ Fin.
 

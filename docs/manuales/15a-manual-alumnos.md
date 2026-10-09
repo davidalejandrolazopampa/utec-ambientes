@@ -197,7 +197,7 @@ En la sección **Cursos** puedes abrir un curso y ver su horario (día, hora, am
 | Cancelar / editar reserva | 5 | `flow-cancelar-reserva.svg` |
 | Consultar horario / ambientes libres | 7 | CU-21 / CU-22 |
 
-Detalle completo en [04-casos-de-uso.md](04-casos-de-uso.md) y [05-diagrama-casos-de-uso.md](05-diagrama-casos-de-uso.md).
+Detalle completo en [04-casos-de-uso.md](../04-casos-de-uso.md) y [05-diagrama-casos-de-uso.md](../05-diagrama-casos-de-uso.md).
 
 ---
 
