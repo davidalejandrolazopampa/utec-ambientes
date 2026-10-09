@@ -1,0 +1,3 @@
+# El dump de datos es un artefacto generado por pg_dump: no debe contar
+# en las estadísticas de lenguaje ni expandirse en los diffs de GitHub.
+db/dump/utec_labs.sql linguist-generated=true

@@ -4,9 +4,8 @@
 
 **Plataforma de gestión, reserva y control de acceso a ambientes académicos** (laboratorios, aulas, auditorios y salas)
 Universidad de Ingeniería y Tecnología (UTEC) · Lima, Perú
-<sub>(repositorio: `utec-lab-reservation`)</sub>
+<sub>(repositorio: `utec-ambientes`)</sub>
 
-[![CI](https://img.shields.io/badge/CI-GitHub_Actions-2088FF?logo=githubactions&logoColor=white)](.github/workflows/ci.yml)
 ![Java](https://img.shields.io/badge/Java-21-orange?logo=openjdk&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.5.14-6DB33F?logo=springboot&logoColor=white)
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)
@@ -297,7 +296,7 @@ cd backend && ./mvnw verify
 cd frontend && npm run test:coverage
 ```
 
-El CI (**GitHub Actions**, [`.github/workflows/ci.yml`](.github/workflows/ci.yml)) ejecuta ambas suites y **falla si la cobertura cae por debajo del ratchet**. Los tests backend fijan la zona horaria en `America/Lima` para ser deterministas.
+Ambas suites comparten un **ratchet de cobertura** que falla si la cobertura cae por debajo del umbral fijado. Los tests backend fijan la zona horaria en `America/Lima` para ser deterministas.
 
 ---
 
