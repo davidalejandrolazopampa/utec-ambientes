@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>UTEC Lab Reservation — Diagrama ER</title>
+<style>
+  body{margin:0;padding:24px;background:#FAFAF7;color:#3d3d3a;font-family:"system-ui", -apple-system,system-ui,"Segoe UI",sans-serif}
+  @media (prefers-color-scheme: dark){body{background:#1f1e1c;color:#c2c0b6}}
+  h1{font-size:18px;font-weight:600;margin:0 0 4px}
+  p.sub{font-size:12px;opacity:.75;margin:0 0 16px}
+  #erd{width:100%;overflow-x:auto}
+  #erd svg{max-width:100%;height:auto}
+</style>
+</head>
+<body>
+<h1>UTEC Lab Reservation — Modelo Entidad-Relación</h1>
+<p class="sub">Esquema real (PostgreSQL 16, baseline Flyway V1 + migraciones V2–V10, incluye aulas/cursos/ciclos y clases). ENUMs nativos mapeados como String en JPA.</p>
+<div id="erd"></div>
+<script type="module">
+import mermaid from 'https://esm.sh/mermaid@11/dist/mermaid.esm.min.mjs';
+const dark = matchMedia('(prefers-color-scheme: dark)').matches;
+await document.fonts.ready;
+mermaid.initialize({
+  startOnLoad: false,
+  theme: 'base',
+  fontFamily: '"system-ui", sans-serif',
+  themeVariables: {
+    darkMode: dark,
+    fontSize: '12px',
+    fontFamily: '"system-ui", sans-serif',
+    lineColor: dark ? '#9c9a92' : '#73726c',
+    textColor: dark ? '#c2c0b6' : '#3d3d3a',
+  },
+});
+const { svg } = await mermaid.render('erd-svg', `erDiagram
+  FACULTADES ||--o{ DEPARTAMENTOS : contiene
+  FACULTADES ||--o{ CARRERAS : ofrece
+  USUARIOS ||--o{ FACULTADES : decano
+  DEPARTAMENTOS ||--o{ LABORATORIOS : agrupa
+  USUARIOS ||--o{ DEPARTAMENTOS : dirige
+  CARRERAS ||--o{ LABORATORIOS : asociado
+  USUARIOS ||--o{ LABORATORIOS : director
+  LABORATORIOS ||--o{ LAB_RESPONSABLES : asigna
+  USUARIOS ||--o{ LAB_RESPONSABLES : responsable
+  USUARIOS ||--o{ DIRECTOR_RESPONSABLES : vincula
+  ROLES ||--o{ USUARIOS : asignado
+  ROLES ||--o{ ROLES_PERMISOS : tiene
+  PERMISOS ||--o{ ROLES_PERMISOS : mapea
+  LABORATORIOS ||--o{ LAB_RECURSOS : contiene
+  LAB_RECURSOS ||--o{ RESERVAS : reservado
+  USUARIOS ||--o{ RESERVAS : crea
+  RESERVAS ||--o{ RESERVA_PARTICIPANTES : participan
+  USUARIOS ||--o{ RESERVA_PARTICIPANTES : participa
+  RESERVAS ||--o{ QR_VALIDACIONES : valida
+  RESERVAS ||--o{ AUDITORIA_RESERVAS : registra
+  LABORATORIOS ||--o{ BLOQUEOS : cierra
+  BLOQUEOS ||--o{ BLOQUEO_RECURSOS : parcial
+  LAB_RECURSOS ||--o{ BLOQUEO_RECURSOS : afecta
+  AULAS ||--o{ BLOQUEOS : cierra
+  CURSOS ||--o{ BLOQUEOS : clase
+  CARRERAS ||--o{ CURSOS : ofrece
+  CICLOS_ACADEMICOS ||--o{ CICLO_EXCEPCIONES : excepciones
+
+  ROLES { bigint id PK
+    varchar nombre UK
+    boolean activo }
+  PERMISOS { bigint id PK
+    varchar nombre UK
+    varchar descripcion }
+  ROLES_PERMISOS { bigint rol_id FK
+    bigint permiso_id FK }
+  USUARIOS { bigint id PK
+    varchar correo_utec UK
+    varchar nombres
+    varchar apellidos
+    varchar cargo
+    varchar carrera
+    bigint departamento_id FK
+    bigint rol_id FK
+    boolean activo }
+  FACULTADES { bigint id PK
+    varchar nombre
+    bigint decano_id FK
+    boolean activo }
+  DEPARTAMENTOS { bigint id PK
+    varchar nombre
+    bigint facultad_id FK
+    bigint director_id FK
+    boolean activo }
+  CARRERAS { bigint id PK
+    varchar nombre
+    bigint facultad_id FK
+    bigint departamento_id FK
+    boolean activo }
+  LABORATORIOS { bigint id PK
+    varchar codigo_lab UK
+    varchar nombre
+    bigint departamento_id FK
+    bigint carrera_id FK
+    bigint director_id FK
+    int piso
+    time hora_apertura
+    time hora_cierre
+    enum tipo_aforo
+    enum estado }
+  LAB_RECURSOS { bigint id PK
+    bigint laboratorio_id FK
+    enum tipo_aforo
+    varchar nombre
+    int numero
+    varchar qr_code UK
+    enum estado_recurso
+    int capacidad_personas
+    boolean activo }
+  LAB_RESPONSABLES { bigint id PK
+    bigint laboratorio_id FK
+    bigint usuario_id FK }
+  DIRECTOR_RESPONSABLES { bigint director_id FK
+    bigint responsable_id FK }
+  RESERVAS { bigint id PK
+    bigint recurso_id FK
+    bigint usuario_id FK
+    date fecha
+    time hora_inicio
+    time hora_fin
+    int participantes
+    enum estado_reserva
+    varchar carrera
+    bigint version }
+  RESERVA_PARTICIPANTES { bigint id PK
+    bigint reserva_id FK
+    bigint usuario_id FK
+    varchar correo_utec
+    varchar nombre_completo
+    varchar carrera
+    boolean es_titular }
+  BLOQUEOS { bigint id PK
+    bigint laboratorio_id FK
+    bigint aula_id FK
+    enum tipo_bloqueo
+    enum motivo_bloqueo
+    date fecha_inicio
+    date fecha_fin
+    time hora_inicio
+    time hora_fin
+    boolean es_clase
+    enum dia_semana
+    varchar ciclo
+    bigint curso_id FK
+    enum frecuencia
+    boolean activo }
+  BLOQUEO_RECURSOS { bigint bloqueo_id FK
+    bigint recurso_id FK }
+  QR_VALIDACIONES { bigint id PK
+    bigint reserva_id FK
+    enum resultado_qr
+    timestamp validado_en }
+  AUDITORIA_RESERVAS { bigint id PK
+    bigint reserva_id FK
+    bigint usuario_id FK
+    varchar accion
+    timestamp created_at }
+  AULAS { bigint id PK
+    varchar codigo UK
+    varchar nombre
+    enum tipo_aula
+    int capacidad
+    int piso
+    boolean activo }
+  CURSOS { bigint id PK
+    varchar cod_curso
+    varchar nombre
+    varchar area
+    bigint carrera_id FK }
+  CICLOS_ACADEMICOS { bigint id PK
+    int anio
+    int ciclo
+    date fecha_inicio
+    date fecha_fin }
+  CICLO_EXCEPCIONES { bigint id PK
+    bigint ciclo_id FK
+    date fecha
+    varchar tipo }
+`);
+document.getElementById('erd').innerHTML = svg;
+// Redondea las esquinas de las cajas de entidad (igual que el ejemplo de referencia).
+document.querySelectorAll('#erd svg .node').forEach(node => {
+  const firstPath = node.querySelector('path[d]');
+  if (!firstPath) return;
+  const d = firstPath.getAttribute('d');
+  const nums = d.match(/-?[\d.]+/g)?.map(Number);
+  if (!nums || nums.length < 8) return;
+  const xs = [nums[0], nums[2], nums[4], nums[6]];
+  const ys = [nums[1], nums[3], nums[5], nums[7]];
+  const x = Math.min(...xs), y = Math.min(...ys);
+  const w = Math.max(...xs) - x, h = Math.max(...ys) - y;
+  const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+  rect.setAttribute('x', x); rect.setAttribute('y', y);
+  rect.setAttribute('width', w); rect.setAttribute('height', h);
+  rect.setAttribute('rx', '8');
+  for (const a of ['fill', 'stroke', 'stroke-width', 'class', 'style']) {
+    if (firstPath.hasAttribute(a)) rect.setAttribute(a, firstPath.getAttribute(a));
+  }
+  firstPath.replaceWith(rect);
+});
+document.querySelectorAll('#erd svg .row-rect-odd path, #erd svg .row-rect-even path').forEach(p => {
+  p.setAttribute('stroke', 'none');
+});
+</script>
+</body>
+</html>

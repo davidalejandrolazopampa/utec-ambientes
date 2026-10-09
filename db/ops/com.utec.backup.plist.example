@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  launchd — respaldo diario automático de la BD (macOS).
+
+  Instalar:
+    1) Edita RUTA_AL_REPO abajo por la ruta real del repositorio.
+    2) (opcional) exporta el destino off-machine en EnvironmentVariables.
+    3) cp db/ops/com.utec.backup.plist.example ~/Library/LaunchAgents/com.utec.backup.plist
+    4) launchctl load ~/Library/LaunchAgents/com.utec.backup.plist
+
+  Ver estado:  launchctl list | grep com.utec.backup
+  Quitar:      launchctl unload ~/Library/LaunchAgents/com.utec.backup.plist
+
+  Corre todos los días a las 03:00. Si el equipo está dormido a esa hora,
+  launchd lo ejecuta al despertar.
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.utec.backup</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>RUTA_AL_REPO/db/ops/backup.sh</string>
+    </array>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <!-- Descomenta y ajusta para forzar el destino off-machine:
+        <key>BACKUP_OFFSITE_DIR</key>
+        <string>/Users/TU_USUARIO/Library/Mobile Documents/com~apple~CloudDocs/utec-backups</string>
+        -->
+    </dict>
+
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Hour</key><integer>3</integer>
+        <key>Minute</key><integer>0</integer>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>RUTA_AL_REPO/logs/backup.out.log</string>
+    <key>StandardErrorPath</key>
+    <string>RUTA_AL_REPO/logs/backup.err.log</string>
+</dict>
+</plist>

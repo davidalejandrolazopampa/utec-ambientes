@@ -1,0 +1,113 @@
+<svg width="100%" viewBox="0 0 760 700" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Diagrama de casos de uso — UTEC Ambientes</title>
+  <desc>Actores (Estudiante, Responsable, Director, Coordinador, Admin, Docencia, Docente, Sistema) y los grupos de casos de uso a los que accede cada uno, con herencia de roles.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+      text{font-family:"system-ui", -apple-system,"system-ui","Segoe UI",sans-serif}
+      .a-blue{fill:#E6F1FB;stroke:#185FA5}.a-green{fill:#E1F5EE;stroke:#0F6E56}.a-purple{fill:#EEEDFE;stroke:#534AB7}.a-amber{fill:#FDF1E3;stroke:#B5701E}.a-red{fill:#FCEBEB;stroke:#A32D2D}.a-neutral{fill:#F1EFE8;stroke:#5F5E5A}
+      .tx-blue{fill:#0C447C}.tx-green{fill:#085041}.tx-purple{fill:#3C3489}.tx-amber{fill:#7A4A12}.tx-red{fill:#791F1F}.tx-neutral{fill:#5F5E5A}
+      .actor{font-size:12.5px;font-weight:600;text-anchor:middle}
+      .grp-h{font-size:12.5px;font-weight:600}
+      .uc{font-size:10.5px;fill:#5F5E5A}
+      .edge{stroke:#9C9A92;stroke-width:1;fill:none}
+      .cap{font-size:11px;fill:#3D3D3A}
+    </style>
+  </defs>
+
+  <text x="380" y="24" text-anchor="middle" class="actor" style="font-size:15px;fill:#3D3D3A">Casos de uso por actor (con herencia de roles)</text>
+
+  <!-- Actors (left) -->
+  <rect x="24" y="70"  width="150" height="44" rx="10" class="a-blue"    stroke-width="1"/><text x="99"  y="97"  class="actor tx-blue">👤 Estudiante</text>
+  <rect x="24" y="150" width="150" height="44" rx="10" class="a-green"   stroke-width="1"/><text x="99"  y="177" class="actor tx-green">🔧 Responsable</text>
+  <rect x="24" y="230" width="150" height="44" rx="10" class="a-purple"  stroke-width="1"/><text x="99"  y="257" class="actor tx-purple">👔 Director</text>
+  <rect x="24" y="310" width="150" height="44" rx="10" class="a-amber"   stroke-width="1"/><text x="99"  y="337" class="actor tx-amber">🧭 Coordinador</text>
+  <rect x="24" y="390" width="150" height="44" rx="10" class="a-red"     stroke-width="1"/><text x="99"  y="417" class="actor tx-red">🛡️ Admin</text>
+  <rect x="24" y="470" width="150" height="44" rx="10" class="a-neutral" stroke-width="1"/><text x="99"  y="497" class="actor tx-neutral">⚙️ Sistema</text>
+
+  <!-- Group: Reservas y check-in -->
+  <rect x="300" y="58" width="220" height="120" rx="12" class="a-green" stroke-width="1" opacity="0.55"/>
+  <text x="314" y="78" class="grp-h tx-green">Reservas y check-in</text>
+  <text x="314" y="98"  class="uc">CU-04 Reservar recurso</text>
+  <text x="314" y="115" class="uc">CU-06 Cancelar/editar reserva*</text>
+  <text x="314" y="132" class="uc">CU-07 Check-in QR</text>
+  <text x="314" y="149" class="uc">CU-08 Check-in manual ¹</text>
+  <text x="314" y="166" class="uc">CU-12 Ver calendario</text>
+
+  <!-- Group: Bloqueos -->
+  <rect x="540" y="58" width="200" height="120" rx="12" class="a-amber" stroke-width="1" opacity="0.55"/>
+  <text x="554" y="78" class="grp-h tx-amber">Bloqueos</text>
+  <text x="554" y="98"  class="uc">CU-10 Crear bloqueo ¹</text>
+  <text x="554" y="115" class="uc">CU-11 Editar/eliminar ¹</text>
+  <text x="554" y="132" class="uc">total / parcial</text>
+  <text x="554" y="149" class="uc">07:00–23:00</text>
+
+  <!-- Group: Sesión -->
+  <rect x="300" y="200" width="220" height="80" rx="12" class="a-blue" stroke-width="1" opacity="0.55"/>
+  <text x="314" y="220" class="grp-h tx-blue">Sesión</text>
+  <text x="314" y="240" class="uc">CU-01 Login OAuth2</text>
+  <text x="314" y="257" class="uc">CU-02 Rehidratar · CU-03 Logout</text>
+
+  <!-- Group: Dashboard -->
+  <rect x="540" y="200" width="200" height="80" rx="12" class="a-purple" stroke-width="1" opacity="0.55"/>
+  <text x="554" y="220" class="grp-h tx-purple">Analítica</text>
+  <text x="554" y="240" class="uc">CU-17 Dashboard / KPIs</text>
+  <text x="554" y="257" class="uc">filtros · export PNG/CSV</text>
+
+  <!-- Group: Gestión -->
+  <rect x="300" y="300" width="220" height="120" rx="12" class="a-amber" stroke-width="1" opacity="0.45"/>
+  <text x="314" y="320" class="grp-h tx-amber">Gestión</text>
+  <text x="314" y="340" class="uc">CU-13 Labs y recursos ¹</text>
+  <text x="314" y="357" class="uc">CU-14 Asignar dir/resp · CU-16 Usuarios</text>
+  <text x="314" y="374" class="uc">CU-26 Retirar/reponer mesas ¹</text>
+  <text x="314" y="391" class="uc">CU-27 Servicios del lab (publicar) ¹</text>
+
+  <!-- Group: Gobernanza (admin) -->
+  <rect x="540" y="300" width="200" height="120" rx="12" class="a-red" stroke-width="1" opacity="0.45"/>
+  <text x="554" y="320" class="grp-h tx-red">Gobernanza (Admin)</text>
+  <text x="554" y="340" class="uc">CU-15 Jerarquía académica</text>
+  <text x="554" y="357" class="uc">CU-18 Respaldo · CU-19 Auditoría</text>
+  <text x="554" y="374" class="uc">CU-29 Cierre institucional</text>
+  <text x="554" y="391" class="uc">(todo UTEC, por rango)</text>
+
+  <!-- Group: Procesos automáticos -->
+  <rect x="300" y="466" width="440" height="52" rx="12" class="a-neutral" stroke-width="1" opacity="0.55"/>
+  <text x="314" y="482" class="grp-h tx-neutral">Procesos automáticos</text>
+  <text x="314" y="500" class="uc">CU-20 No-show (15 min) · completar vencidas · liberar recursos huérfanos</text>
+  <text x="314" y="514" class="uc">protección de medianoche · ShedLock (una sola instancia ejecuta)</text>
+
+  <!-- Edges actor -> groups -->
+  <line x1="174" y1="92"  x2="300" y2="118" class="edge" marker-end="url(#arrow)"/>
+  <line x1="174" y1="92"  x2="300" y2="240" class="edge" marker-end="url(#arrow)"/>
+  <line x1="174" y1="172" x2="300" y2="140" class="edge" marker-end="url(#arrow)"/>
+  <line x1="174" y1="172" x2="540" y2="118" class="edge" marker-end="url(#arrow)"/>
+  <line x1="174" y1="172" x2="300" y2="340" class="edge" marker-end="url(#arrow)"/>
+  <line x1="174" y1="252" x2="540" y2="118" class="edge" marker-end="url(#arrow)"/>
+  <line x1="174" y1="252" x2="540" y2="240" class="edge" marker-end="url(#arrow)"/>
+  <line x1="174" y1="332" x2="300" y2="340" class="edge" marker-end="url(#arrow)"/>
+  <line x1="174" y1="332" x2="540" y2="240" class="edge" marker-end="url(#arrow)"/>
+  <line x1="174" y1="412" x2="540" y2="340" class="edge" marker-end="url(#arrow)"/>
+  <line x1="174" y1="492" x2="300" y2="492" class="edge" marker-end="url(#arrow)"/>
+
+  <!-- Actor: Docencia (counter) -->
+  <rect x="24" y="524" width="150" height="44" rx="10" class="a-purple" stroke-width="1"/><text x="99" y="551" class="actor tx-purple">📚 Docencia</text>
+
+  <!-- Actor: Docente (solo consulta) -->
+  <rect x="24" y="584" width="150" height="44" rx="10" class="a-blue" stroke-width="1"/><text x="99" y="611" class="actor tx-blue">👨‍🏫 Docente</text>
+
+  <!-- Group: Programación Académica (Docencia gestiona; alumno/docente consultan) -->
+  <rect x="300" y="524" width="440" height="112" rx="12" class="a-purple" stroke-width="1" opacity="0.45"/>
+  <text x="314" y="544" class="grp-h tx-purple">Programación Académica</text>
+  <text x="314" y="564" class="uc">CU-21 Consultar horario / calendario (alumno) · CU-22 Ambientes libres</text>
+  <text x="314" y="581" class="uc">CU-23 Importar horarios · CU-24 Gestionar aulas · CU-25 Ciclos</text>
+  <text x="314" y="598" class="uc">Bloqueo de aula (siempre total; ADMIN/DOCENCIA)</text>
+  <text x="314" y="615" class="uc">CU-28 Docente: consulta calendarios/disponibilidad y solicita servicios (no reserva)</text>
+
+  <!-- Edges: Docencia y Docente → Programación Académica -->
+  <line x1="174" y1="546" x2="300" y2="560" class="edge" marker-end="url(#arrow)"/>
+  <line x1="174" y1="606" x2="300" y2="610" class="edge" marker-end="url(#arrow)"/>
+
+  <text x="24" y="668" class="cap">Herencia: cada rol superior hereda los casos del inferior.  * solo propias (anti-IDOR).  ¹ solo sus labs asignados (403).  Docente = solo consulta.</text>
+</svg>

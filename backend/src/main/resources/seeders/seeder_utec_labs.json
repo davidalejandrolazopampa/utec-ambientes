@@ -1,0 +1,297 @@
+{
+  "facultades": [
+    {
+      "nombre": "Facultad de Negocios",
+      "carreras": [
+        "Administración y Negocios Digitales",
+        "Business Analytics"
+      ]
+    },
+    {
+      "nombre": "Facultad de Computación",
+      "carreras": [
+        "Ciberseguridad",
+        "Ciencia de Datos e Inteligencia Artificial",
+        "Computer Science",
+        "Sistemas de Información"
+      ]
+    },
+    {
+      "nombre": "Facultad de Ingeniería",
+      "carreras": [
+        "Bioingeniería",
+        "Ing. Ambiental",
+        "Ing. Civil",
+        "Ing. de la Energía",
+        "Ing. Electrónica",
+        "Ing. Industrial",
+        "Ing. Mecatrónica",
+        "Ing. Mecánica",
+        "Ing. Química",
+        "Ciencias"
+      ]
+    }
+  ],
+  "usuarios": [
+    {
+      "correo_utec": "rcanahuire@utec.edu.pe",
+      "nombres": "Ruth Vanessa",
+      "apellidos": "Canahuire Cabello",
+      "rol": "Admin",
+      "cargo": "Directora General Académica"
+    },
+    {
+      "correo_utec": "aaranda@utec.edu.pe",
+      "nombres": "Andrea Pamela",
+      "apellidos": "Aranda Franco",
+      "rol": "Coordinador",
+      "cargo": "Coordinadora de Laboratorios Académicos"
+    },
+    {
+      "correo_utec": "dmilanes@utec.edu.pe",
+      "nombres": "Diego Alejandro",
+      "apellidos": "Milanes Carreño",
+      "rol": "Director",
+      "cargo": "Dir. de Proyectos e Infraestructura Académica y Dpto de Física"
+    },
+    {
+      "correo_utec": "mortiz@utec.edu.pe",
+      "nombres": "Maria Belen",
+      "apellidos": "Ortiz",
+      "rol": "Director",
+      "cargo": "Directora de Ciberseguridad"
+    },
+    {
+      "correo_utec": "ebiagioli@utec.edu.pe",
+      "nombres": "Eric",
+      "apellidos": "Biagioli",
+      "rol": "Director",
+      "cargo": "Director de Computer Science"
+    },
+    {
+      "correo_utec": "jlarco@utec.edu.pe",
+      "nombres": "José",
+      "apellidos": "Larco",
+      "rol": "Director",
+      "cargo": "Director de Ingeniería Industrial"
+    },
+    {
+      "correo_utec": "dlazo@utec.edu.pe",
+      "nombres": "David Alejandro",
+      "apellidos": "Lazo Pampa",
+      "rol": "Responsable de Laboratorio",
+      "cargo": "Responsable Junior Concept Lab"
+    },
+    {
+      "correo_utec": "avasquez@utec.edu.pe",
+      "nombres": "Alexandra Sofia",
+      "apellidos": "Vasquez Espinoza",
+      "rol": "Responsable de Laboratorio"
+    },
+    {
+      "correo_utec": "lgalarza@utec.edu.pe",
+      "nombres": "Lezmit",
+      "apellidos": "Galarza Sinche",
+      "rol": "Responsable de Laboratorio"
+    },
+    {
+      "correo_utec": "rcastro@utec.edu.pe",
+      "nombres": "Roy Anthoni",
+      "apellidos": "Castro Mendoza",
+      "rol": "Responsable de Laboratorio"
+    },
+    {
+      "correo_utec": "irobles@utec.edu.pe",
+      "nombres": "Isaac",
+      "apellidos": "Robles",
+      "rol": "Responsable de Laboratorio"
+    },
+    {
+      "correo_utec": "mgutierrez@utec.edu.pe",
+      "nombres": "Maria Rosa",
+      "apellidos": "Gutierrez",
+      "rol": "Responsable de Laboratorio"
+    }
+  ],
+  "laboratorios": [
+    {
+      "codigo_lab": "L108",
+      "nombre": "Garage Concept",
+      "id_departamento": "Dirección de Proyectos e Infraestructura Académica",
+      "id_carrera": null,
+      "piso": 1,
+      "ubicacion_fase": "Fase 2",
+      "reseña": "Espacio para ideación y prototipado rápido.",
+      "dias_semana_atencion": ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"],
+      "hora_apertura": "08:00:00",
+      "hora_cierre": "18:00:00",
+      "director_email": "dmilanes@utec.edu.pe",
+      "responsables_emails": [
+        "dlazo@utec.edu.pe",
+        "lgalarza@utec.edu.pe",
+        "rcastro@utec.edu.pe"
+      ],
+      "aforo": {
+        "tipo": "Mesa",
+        "cantidad": 12,
+        "capacidad_personas": 5
+      },
+      "equipamiento": {
+        "computadoras": 0,
+        "equipo_especializado": []
+      }
+    },
+    {
+      "codigo_lab": "L107",
+      "nombre": "Garage",
+      "id_departamento": "Dirección de Proyectos e Infraestructura Académica",
+      "id_carrera": null,
+      "piso": 1,
+      "ubicacion_fase": "Fase 2",
+      "reseña": "Espacio de trabajo para proyectos interdisciplinarios.",
+      "dias_semana_atencion": ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"],
+      "hora_apertura": "08:00:00",
+      "hora_cierre": "18:00:00",
+      "director_email": "dmilanes@utec.edu.pe",
+      "responsables_emails": [
+        "avasquez@utec.edu.pe",
+        "lgalarza@utec.edu.pe",
+        "rcastro@utec.edu.pe"
+      ],
+      "aforo": {
+        "tipo": "Mesa",
+        "cantidad": 10,
+        "capacidad_personas": 4
+      },
+      "equipamiento": {
+        "computadoras": 1,
+        "equipo_especializado": []
+      }
+    },
+    {
+      "codigo_lab": "L105",
+      "nombre": "Fab Lab Sustractiva",
+      "id_departamento": "Dirección de Proyectos e Infraestructura Académica",
+      "id_carrera": null,
+      "piso": 1,
+      "ubicacion_fase": "Fase 2",
+      "reseña": "Laboratorio de fabricación digital y mecanizado.",
+      "dias_semana_atencion": ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"],
+      "hora_apertura": "08:00:00",
+      "hora_cierre": "18:00:00",
+      "director_email": "dmilanes@utec.edu.pe",
+      "responsables_emails": [
+        "irobles@utec.edu.pe"
+      ],
+      "aforo": {
+        "tipo": "Mesa",
+        "cantidad": 5,
+        "capacidad_personas": 4
+      },
+      "equipamiento": {
+        "computadoras": 0,
+        "equipo_especializado": ["Cortadora Láser", "CNC Router"]
+      }
+    },
+    {
+      "codigo_lab": "L207",
+      "nombre": "Fab Lab Aditiva",
+      "id_departamento": "Dirección de Proyectos e Infraestructura Académica",
+      "id_carrera": null,
+      "piso": 2,
+      "ubicacion_fase": "Fase 2",
+      "reseña": "Laboratorio de impresión 3D y manufactura aditiva.",
+      "dias_semana_atencion": ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"],
+      "hora_apertura": "08:00:00",
+      "hora_cierre": "18:00:00",
+      "director_email": "dmilanes@utec.edu.pe",
+      "responsables_emails": [
+        "irobles@utec.edu.pe"
+      ],
+      "aforo": {
+        "tipo": "Mesa",
+        "cantidad": 5,
+        "capacidad_personas": 4
+      },
+      "equipamiento": {
+        "computadoras": 0,
+        "equipo_especializado": ["Impresoras 3D FDM", "Impresoras 3D Resina"]
+      }
+    },
+    {
+      "codigo_lab": "L208",
+      "nombre": "Business Intelligence And Data Analytics",
+      "id_departamento": null,
+      "id_carrera": "Computer Science",
+      "piso": 2,
+      "ubicacion_fase": "Fase 2",
+      "reseña": "Laboratorio avanzado para el procesamiento de datos y analítica.",
+      "dias_semana_atencion": ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+      "hora_apertura": "08:00:00",
+      "hora_cierre": "20:00:00",
+      "director_email": "ebiagioli@utec.edu.pe",
+      "responsables_emails": [
+        "ebiagioli@utec.edu.pe"
+      ],
+      "aforo": {
+        "tipo": "PC",
+        "cantidad": 20,
+        "capacidad_personas": 1
+      },
+      "equipamiento": {
+        "computadoras": 20,
+        "equipo_especializado": []
+      }
+    },
+    {
+      "codigo_lab": "L419",
+      "nombre": "Laboratorio de Ciberseguridad",
+      "id_departamento": null,
+      "id_carrera": "Ciberseguridad",
+      "piso": 4,
+      "ubicacion_fase": "Fase 2",
+      "reseña": "Entorno seguro para prácticas de hacking ético y redes.",
+      "dias_semana_atencion": ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"],
+      "hora_apertura": "08:00:00",
+      "hora_cierre": "18:00:00",
+      "director_email": "mortiz@utec.edu.pe",
+      "responsables_emails": [
+        "mortiz@utec.edu.pe"
+      ],
+      "aforo": {
+        "tipo": "PC",
+        "cantidad": 25,
+        "capacidad_personas": 1
+      },
+      "equipamiento": {
+        "computadoras": 25,
+        "equipo_especializado": ["Servidores de Rack", "Switches Cisco"]
+      }
+    },
+    {
+      "codigo_lab": "L506",
+      "nombre": "Colaboratorio - Diseño de Productos",
+      "id_departamento": "Ingeniería Industrial",
+      "id_carrera": "Ing. Industrial",
+      "piso": 5,
+      "ubicacion_fase": "Fase 1",
+      "reseña": "Espacio colaborativo para la conceptualización de productos industriales.",
+      "dias_semana_atencion": ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"],
+      "hora_apertura": "08:00:00",
+      "hora_cierre": "18:00:00",
+      "director_email": "jlarco@utec.edu.pe",
+      "responsables_emails": [
+        "mgutierrez@utec.edu.pe"
+      ],
+      "aforo": {
+        "tipo": "Mesa",
+        "cantidad": 8,
+        "capacidad_personas": 4
+      },
+      "equipamiento": {
+        "computadoras": 0,
+        "equipo_especializado": []
+      }
+    }
+  ]
+}

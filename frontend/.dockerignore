@@ -1,0 +1,15 @@
+# No incluir en el contexto de build de la imagen del frontend
+node_modules
+dist
+coverage
+.git/
+.gitignore
+.idea/
+.vscode/
+
+# Secretos / config local — NUNCA hornear en la imagen
+.env
+.env.*
+
+# Docs y misceláneos
+*.md

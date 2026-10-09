@@ -1,0 +1,53 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?stringtype=unspecified
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    hikari:
+      maximum-pool-size: 30
+  jpa:
+    show-sql: false
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      password: ${REDIS_PASSWORD}
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USER}
+    password: ${RABBITMQ_PASSWORD}
+    virtual-host: ${RABBITMQ_VHOST}
+  devtools:
+    restart:
+      enabled: false
+
+app:
+  auth:
+    # En producción la cookie del refresh token solo debe viajar por HTTPS.
+    cookie-secure: true
+
+server:
+  error:
+    # No filtrar detalles internos al cliente en producción (CWE-209).
+    include-message: never
+    include-stacktrace: never
+    include-binding-errors: never
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # En prod solo health/info; metrics y flyway (metadatos de esquema) quedan fuera.
+        include: health,info
+
+logging:
+  level:
+    root: WARN
+    pe.edu.utec.reservas: INFO
+
+springdoc:
+  swagger-ui:
+    enabled: false
+  api-docs:
+    enabled: false

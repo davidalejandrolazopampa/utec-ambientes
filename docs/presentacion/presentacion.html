@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UTEC · Reserva de Espacios — Presentación</title>
+
+<!-- reveal.js core (LOCAL, funciona sin internet) -->
+<link rel="stylesheet" href="vendor/reveal/dist/reset.css">
+<link rel="stylesheet" href="vendor/reveal/dist/reveal.css">
+<!-- Fuentes locales (Inter + Roboto Slab); fallback a sistema si faltaran -->
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+
+<style>
+/* ============ Identidad UTEC (Manual de Identidad Visual) ============ */
+:root{
+  --cyan:#00BFFF;      /* marca / relleno / dato — nunca texto sobre blanco */
+  --cyan-ink:#015EEA;  /* links / labels con texto (AA) */
+  --cyan-50:#BFF0FF;
+  --cyan-100:#82E1FF;
+  --ink:#231F20;       /* texto principal */
+  --muted:#5B5F63;
+  --bg:#F7F9FB;
+  --line:#E6EAEE;
+  --white:#FFFFFF;
+  --green:#2E7D32;
+  --yellow:#FBBC05;
+  --r:16px;
+}
+.reveal{ font-family:'Inter',-apple-system,'Segoe UI',Calibri,sans-serif; font-size:23px; color:var(--ink); }
+.reveal .slides{ text-align:left; }
+.reveal h1,.reveal h2,.reveal h3{ font-family:'Roboto Slab','Georgia',serif; color:var(--ink); text-transform:none; letter-spacing:-.01em; line-height:1.12; margin:0 0 .3em; font-weight:800; }
+.reveal h1{ font-size:1.75em; }
+.reveal h2{ font-size:1.28em; }
+.reveal h3{ font-size:1.0em; }
+.reveal p,.reveal li{ color:var(--muted); line-height:1.4; }
+.reveal strong{ color:var(--ink); }
+.reveal .slide-number{ background:transparent; color:var(--muted); font-family:'Inter'; }
+.reveal .controls{ color:var(--cyan-ink); }
+.reveal .progress{ color:var(--cyan); height:5px; }
+::selection{ background:var(--cyan-100); }
+
+/* Kicker / eyebrow */
+.kicker{ display:inline-block; font-family:'Inter'; font-weight:700; font-size:.5em;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--cyan-ink); margin-bottom:.5em; }
+.rule{ width:64px; height:6px; background:var(--cyan); border-radius:999px; margin:.4em 0 .7em; }
+
+/* Logo esquina */
+.logo-tr{ position:absolute; top:24px; right:28px; height:52px; z-index:20; }
+
+/* Chips y tarjetas */
+.card{ background:var(--white); border:1px solid var(--line); border-radius:var(--r);
+  padding:18px 22px; box-shadow:0 4px 14px rgba(35,31,32,.05); }
+.card.soft{ background:var(--bg); border:none; box-shadow:none; }
+.card.cyan{ background:var(--cyan-50); border:none; }
+.grid{ display:grid; gap:22px; }
+.g2{ grid-template-columns:1fr 1fr; }
+.g3{ grid-template-columns:repeat(3,1fr); }
+.g4{ grid-template-columns:repeat(4,1fr); }
+.acc-left{ border-left:6px solid var(--cyan); }
+
+ul.clean{ list-style:none; margin:0; padding:0; }
+ul.clean li{ position:relative; padding-left:26px; margin:.38em 0; font-size:.8em; }
+ul.clean li::before{ content:""; position:absolute; left:0; top:.42em; width:12px; height:12px;
+  background:var(--cyan); border-radius:3px; }
+
+/* Numeración de pasos */
+.num{ display:inline-flex; align-items:center; justify-content:center; width:46px; height:46px;
+  background:var(--cyan); color:var(--ink); font-family:'Inter'; font-weight:800; font-size:.7em;
+  border-radius:12px; flex:0 0 auto; }
+
+/* Imágenes / capturas */
+.shot{ border:1px solid var(--line); border-radius:12px; box-shadow:0 8px 26px rgba(35,31,32,.12);
+  max-height:46vh; width:auto; max-width:100%; background:#fff; }
+.shot-sm{ max-height:34vh; }
+figcaption{ font-family:'Inter'; font-size:.5em; color:var(--muted); margin-top:.6em; text-align:center; }
+.center{ text-align:center; }
+.row{ display:flex; gap:26px; align-items:center; }
+.row.top{ align-items:flex-start; }
+
+/* Stats */
+.stat .n{ font-family:'Roboto Slab',serif; font-weight:800; font-size:1.9em; color:var(--ink); line-height:1; }
+.stat .n .u{ color:var(--cyan-ink); }
+.stat .l{ font-family:'Inter'; font-size:.5em; color:var(--muted); margin-top:.4em; text-transform:uppercase; letter-spacing:.06em; }
+
+/* Badge */
+.badge{ display:inline-flex; align-items:center; gap:12px; background:var(--cyan-50);
+  border-radius:999px; padding:12px 24px; font-family:'Inter'; font-weight:700; color:var(--green); font-size:.62em; }
+.badge .dot{ width:12px; height:12px; border-radius:50%; background:var(--green); }
+
+/* Tabla stack */
+.stack{ display:grid; grid-template-columns:auto 1fr; gap:10px 22px; font-size:.72em; }
+.stack .k{ font-family:'Inter'; font-weight:700; color:var(--ink); }
+.stack .v{ color:var(--muted); }
+
+/* Portada / secciones oscuras */
+.dark{ background:var(--ink) !important; }
+.reveal .dark h1,.reveal .dark h2,.reveal .dark h3{ color:#fff; }
+.dark p,.dark li{ color:#C8C8C8; }
+.dark .kicker{ color:var(--cyan); }
+.sideband{ position:absolute; top:0; right:0; width:46px; height:100%; background:var(--cyan); }
+.sideband2{ position:absolute; top:0; right:46px; width:14px; height:100%; background:var(--cyan-100); }
+
+/* Slide de sección */
+.section-tag{ font-family:'Roboto Slab',serif; font-size:3.6em; font-weight:800; color:var(--cyan); line-height:.9; }
+
+/* Botón demo */
+.launch{ display:inline-flex; align-items:center; gap:16px; background:var(--cyan); color:var(--ink);
+  font-family:'Inter'; font-weight:800; font-size:.7em; text-decoration:none; padding:20px 34px;
+  border-radius:14px; box-shadow:0 10px 30px rgba(0,191,255,.35); transition:transform .12s; }
+.launch:hover{ transform:translateY(-2px); }
+.launch.ghost{ background:#fff; color:var(--cyan-ink); border:2px solid var(--cyan); box-shadow:none; }
+small.hint{ font-family:'Inter'; color:var(--muted); font-size:.5em; }
+</style>
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+<!-- ================= 1 · PORTADA ================= -->
+<section data-background-color="#FFFFFF">
+  <div class="sideband"></div><div class="sideband2"></div>
+  <img class="logo-tr" src="../../frontend/src/assets/utec-logo.png" alt="UTEC" style="height:60px; top:40px; right:110px;">
+  <div>
+    <span class="kicker">UTEC · Concept Lab · Proyectos e Infraestructura Académica</span>
+    <h1>Aplicativo de<br>Reserva de Espacios</h1>
+    <div class="rule"></div>
+    <p style="font-size:.72em; max-width:16em;">Sistema para reservar, bloquear y controlar el uso de los laboratorios de la universidad.</p>
+    <p style="margin-top:1.2em; font-size:.6em;"><strong>David Lazo</strong> — Responsable Jr., Concept Lab &nbsp;·&nbsp; julio de 2026</p>
+  </div>
+  <aside class="notes">Atajos privados: ← → navegar · F pantalla completa · S notas del orador · Esc vista general. — Buenos días y gracias por el espacio. Les presento el aplicativo de reserva de espacios que desarrollé para Concept Lab como parte de mis objetivos. Voy a mostrar qué hace, cómo está construido, y conversar sobre su escalabilidad y seguridad.</aside>
+</section>
+
+<!-- ================= 2 · AGENDA ================= -->
+<section data-background-color="#FFFFFF">
+  <img class="logo-tr" src="../../frontend/src/assets/utec-logo.png">
+  <span class="kicker">Agenda de la sesión</span>
+  <h2>Lo que veremos hoy</h2>
+  <div class="rule"></div>
+  <div class="grid g3" style="margin-top:.6em;">
+    <div class="card acc-left fragment">
+      <div class="num" style="margin-bottom:14px;">01</div>
+      <h3>Funcional</h3>
+      <p style="font-size:.62em;">Recorrido en vivo de las funcionalidades para cada rol.</p>
+    </div>
+    <div class="card acc-left fragment">
+      <div class="num" style="margin-bottom:14px;">02</div>
+      <h3>Técnico</h3>
+      <p style="font-size:.62em;">Arquitectura, tecnología y documentación del sistema.</p>
+    </div>
+    <div class="card acc-left fragment">
+      <div class="num" style="margin-bottom:14px;">03</div>
+      <h3>Escalabilidad y seguridad</h3>
+      <p style="font-size:.62em;">Cómo crece a toda la universidad y cómo protege los datos.</p>
+    </div>
+  </div>
+  <p class="center" style="margin-top:1.4em; font-size:.55em;">Estructura alineada a los pasos propuestos por la Jefatura de Soluciones TI.</p>
+  <aside class="notes">La sesión sigue exactamente los pasos que planteó la Jefatura de TI: primero las funcionalidades en vivo, luego la parte técnica, y cerramos con escalabilidad y seguridad.</aside>
+</section>
+
+<!-- ================= 3 · CONTEXTO ================= -->
+<section data-background-color="#FFFFFF">
+  <img class="logo-tr" src="../../frontend/src/assets/utec-logo.png">
+  <span class="kicker">Contexto</span>
+  <h2>El problema y la solución</h2>
+  <div class="rule"></div>
+  <div class="grid g2" style="margin-top:.4em;">
+    <div class="card soft">
+      <h3 style="font-size:.95em;">Hoy</h3>
+      <ul class="clean" style="filter:grayscale(1);">
+        <li>Reserva manual y dispersa (Affluences, correos, hojas)</li>
+        <li>Sin control real del uso presencial</li>
+        <li>Sin datos para tomar decisiones</li>
+      </ul>
+    </div>
+    <div class="card cyan acc-left">
+      <h3 style="font-size:.95em;">La solución</h3>
+      <ul class="clean">
+        <li>Plataforma web única para <strong>labs y aulas</strong>: reservar, bloquear y controlar</li>
+        <li><strong>Check-in por QR</strong>: valida el uso presencial real</li>
+        <li>Dashboard con analítica para decidir</li>
+        <li>Modela la jerarquía real: Facultad → Depto → Lab → Responsable</li>
+        <li><strong>Horario académico integrado</strong>: clases, ciclos y calendario</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">Hoy la reserva es manual y dispersa: Affluences, correos, hojas. No hay control real del uso ni datos para decidir. La solución integra reserva, bloqueo y control en una sola plataforma, con check-in por QR y un dashboard. Y modela la jerarquía real de UTEC.</aside>
+</section>
+
+<!-- ================= 4 · ROLES ================= -->
+<section data-background-color="#FFFFFF">
+  <img class="logo-tr" src="../../frontend/src/assets/utec-logo.png">
+  <span class="kicker">Usuarios</span>
+  <h2>Roles y su alcance</h2>
+  <div class="rule"></div>
+  <div class="grid" style="grid-template-columns:1fr; gap:13px; margin-top:.3em;">
+    <div class="card cyan acc-left fragment" style="padding:14px 24px;"><div class="row"><div style="width:8.5em;"><strong>Admin / Coordinador</strong></div><p style="margin:0; font-size:.62em;">Gestión total: laboratorios, reservas, bloqueos y dashboard</p></div></div>
+    <div class="card soft acc-left fragment" style="padding:14px 24px;"><div class="row"><div style="width:8.5em;"><strong>Director</strong></div><p style="margin:0; font-size:.62em;">Los laboratorios de su departamento</p></div></div>
+    <div class="card soft acc-left fragment" style="padding:14px 24px;"><div class="row"><div style="width:8.5em;"><strong>Responsable de Lab</strong></div><p style="margin:0; font-size:.62em;">Solo su(s) laboratorio(s) asignado(s)</p></div></div>
+    <div class="card soft acc-left fragment" style="padding:14px 24px;"><div class="row"><div style="width:8.5em;"><strong>Docencia</strong></div><p style="margin:0; font-size:.62em;">Aulas, cursos y horario académico (no gestiona labs)</p></div></div>
+    <div class="card soft acc-left fragment" style="padding:14px 24px;"><div class="row"><div style="width:8.5em;"><strong>Docente</strong></div><p style="margin:0; font-size:.62em;">Solo consulta: calendarios y disponibilidad (no reserva)</p></div></div>
+    <div class="card soft acc-left fragment" style="padding:14px 24px;"><div class="row"><div style="width:8.5em;"><strong>Estudiante</strong></div><p style="margin:0; font-size:.62em;">Reserva un espacio y hace su check-in</p></div></div>
+  </div>
+  <aside class="notes">El sistema tiene siete roles. Admin y Coordinador comparten la gestión total de laboratorios. El Director ve los de su departamento, y el Responsable solo los suyos. Docencia es el counter académico: gestiona aulas, cursos y el horario de clases — no toca laboratorios. El Docente nace automáticamente al importar el horario y solo consulta: ve calendarios y disponibilidad pero no reserva. Lo importante: los permisos se validan en el servidor, no solo ocultando botones.</aside>
+</section>
+
+<!-- ================= SECCIÓN 01 · FUNCIONAL ================= -->
+<section class="dark" data-background-color="#231F20">
+  <div class="sideband"></div>
+  <span class="kicker">Parte 01</span>
+  <div class="section-tag">01</div>
+  <h1 style="margin-top:.1em;">Funcionalidades</h1>
+  <p style="font-size:.7em;">Recorrido de la plataforma, pantalla por pantalla.</p>
+  <aside class="notes">Entramos a la parte funcional. Voy mostrando pantalla por pantalla y luego lo vemos funcionando en vivo.</aside>
+</section>
+
+<!-- Login -->
+<section data-background-color="#FFFFFF">
+  <span class="kicker">Acceso</span><h2>Login con Google institucional</h2><div class="rule"></div>
+  <div class="row top">
+    <figure class="center" style="margin:0; flex:1;"><img class="shot" src="../manuales/manual-img/00-login.png"><figcaption>Pantalla de acceso</figcaption></figure>
+    <div style="flex:1;"><ul class="clean">
+      <li>Solo cuentas <strong>@utec.edu.pe</strong></li>
+      <li>Sin contraseñas nuevas que administrar</li>
+      <li>El sistema asigna el rol automáticamente</li>
+      <li>Token seguro (JWT) tras validar con Google</li>
+    </ul></div>
+  </div>
+  <aside class="notes">
+<b>Qué decir:</b> El acceso es con la cuenta institucional de Google, solo dominios arroba utec punto edu punto pe. Sin contraseñas nuevas que administrar; el sistema asigna el rol automáticamente.
+<hr>
+<b>Términos (por si preguntan):</b>
+<ul>
+<li><b>Google OAuth2</b>: el alumno entra con su cuenta @utec ("Iniciar sesión con Google"). Google confirma su identidad; nosotros nunca vemos ni guardamos su contraseña.</li>
+<li><b>JWT (JSON Web Token)</b>: tras validar con Google, le damos un "carné digital" firmado que acompaña cada petición para saber quién es, sin re-loguearse.</li>
+<li><b>Access token (15 min) y Refresh token (7 días)</b>: el primero es de vida corta para operar; el segundo renueva el acceso sin pedir login de nuevo.</li>
+</ul>
+<b>Posibles dudas:</b>
+<ul>
+<li><i>¿Y si alguien no es de UTEC?</i> → No puede entrar: se valida el dominio @utec.edu.pe.</li>
+<li><i>¿Se puede usar el SSO de UTEC?</i> → Sí, está diseñado para integrarse con el inicio de sesión institucional.</li>
+</ul>
+</aside>
+</section>
+
+<!-- Reservar -->
+<section data-background-color="#FFFFFF">
+  <span class="kicker">Estudiante</span><h2>Reservar un laboratorio</h2><div class="rule"></div>
+  <div class="row top" style="gap:26px;">
+    <div style="flex:0 0 30%;"><ul class="clean">
+      <li><strong>1.</strong> Elige el <strong>laboratorio</strong> y su recurso: <strong>mesa, PC o equipo especializado</strong></li>
+      <li><strong>2.</strong> Elige la <strong>hora</strong> y la <strong>duración</strong></li>
+      <li><strong>3.</strong> Agrega los <strong>correos de los participantes</strong></li>
+      <li><strong>4.</strong> Confirma y recibe correo automático</li>
+    </ul></div>
+    <figure class="center" style="margin:0; flex:1;"><img class="shot" src="../manuales/manual-img/al-reserva-1-recurso.png" style="max-height:60vh;"><figcaption>1–2 · Lab y recurso (verde = disponible)</figcaption></figure>
+    <figure class="center" style="margin:0; flex:0 0 auto;"><img class="shot" src="../manuales/manual-img/al-reserva-2-panel.png" style="max-height:60vh;"><figcaption>3–4 · Hora, duración y correos</figcaption></figure>
+  </div>
+  <aside class="notes">Así reserva el alumno. Primero elige el laboratorio y dentro el recurso —una mesa, un PC o un equipo especializado, en verde los disponibles—. Luego elige la hora de inicio y la duración en la grilla. Después agrega los correos de sus participantes: el primero es él mismo (titular) y los demás son sus acompañantes, que deben estar registrados. Confirma y recibe un correo que le recuerda hacer el check-in. Aquí vemos el flujo completo en un ejemplo real.</aside>
+</section>
+
+<!-- Check-in QR -->
+<section data-background-color="#FFFFFF">
+  <span class="kicker">Diferenciador</span><h2>Check-in por código QR</h2><div class="rule"></div>
+  <div class="row top">
+    <figure class="center" style="margin:0; flex:1;"><img class="shot" src="../manuales/manual-img/ad-08-qr-recursos.png" style="max-height:52vh;"><figcaption>Cada recurso (mesa, PC…) tiene su propio código QR</figcaption></figure>
+    <figure class="center" style="margin:0; flex:1;"><img class="shot" src="../manuales/manual-img/al-06-checkin.png" style="max-height:52vh;"><figcaption>El alumno lo escanea → check-in confirmado</figcaption></figure>
+  </div>
+  <p class="center" style="margin-top:.5em; font-size:.6em;">Valida el <strong>uso presencial real</strong> del laboratorio — no basta con reservar.</p>
+  <aside class="notes">
+<b>Qué decir:</b> Este es el diferenciador. Cada recurso tiene su código QR; el alumno hace check-in y recién ahí la reserva cuenta como uso real. Resuelve el problema de las reservas fantasma que nadie usa.
+<hr>
+<b>Términos (por si preguntan):</b>
+<ul>
+<li><b>Check-in</b>: confirmar la asistencia presencial. La reserva pasa a "En curso" solo cuando el alumno llega y escanea.</li>
+<li><b>QR</b>: código que se escanea con la cámara. Cada mesa/PC tiene el suyo; la generación del QR exige estar autenticado (no es una imagen pública).</li>
+<li><b>Reserva fantasma</b>: la que se aparta pero nadie usa; el check-in permite detectarlas y medir el uso real.</li>
+</ul>
+<b>Posibles dudas:</b>
+<ul>
+<li><i>¿Se puede hacer check-in sin estar presente?</i> → La ventana se abre 10 min antes de la hora y el responsable también puede validarlo manualmente.</li>
+<li><i>¿Qué pasa si no hace check-in?</i> → Queda registrado como no-asistencia (dato para el dashboard).</li>
+</ul>
+</aside>
+</section>
+
+<!-- Bloqueos -->
+<section data-background-color="#FFFFFF">
+  <span class="kicker">Responsable</span><h2>Bloqueos: total o parcial</h2><div class="rule"></div>
+  <div class="row top">
+    <figure class="center" style="margin:0; flex:1;"><img class="shot shot-sm" src="../manuales/manual-img/ad-04-bloqueo-total.png"><figcaption>Bloqueo total (todo el lab)</figcaption></figure>
+    <figure class="center" style="margin:0; flex:1;"><img class="shot shot-sm" src="../manuales/manual-img/ad-05-bloqueo-parcial.png"><figcaption>Bloqueo parcial (solo ciertas mesas)</figcaption></figure>
+  </div>
+  <p class="center" style="margin-top:.6em; font-size:.6em;">Mantenimiento, evento o clase — con correo automático al responsable.</p>
+  <aside class="notes">El responsable puede bloquear el laboratorio completo, por ejemplo para un evento o una clase, o solo ciertas mesas. Todo con correo automático. Sirve para mantenimiento, exámenes y eventos.</aside>
+</section>
+
+<!-- Organización -->
+<section data-background-color="#FFFFFF">
+  <span class="kicker">Administración</span><h2>Organización y gestión de laboratorios</h2><div class="rule"></div>
+  <div class="row top">
+    <div style="flex:1;"><ul class="clean">
+      <li>Estructura académica: <strong>Facultades → Departamentos → Laboratorios</strong></li>
+      <li>Alta y edición de facultades, departamentos y carreras</li>
+      <li>Gestión de personas y asignación de <strong>decanos y directores</strong></li>
+      <li><strong>Activar / desactivar laboratorios</strong> (badge Activo / Inactivo)</li>
+    </ul></div>
+    <figure class="center" style="margin:0; flex:1.5;"><img class="shot" src="../manuales/manual-img/ad-07-org-labs.png"><figcaption>Pestaña "Labs": cada laboratorio Activo o Inactivo</figcaption></figure>
+  </div>
+  <aside class="notes">
+<b>Qué decir:</b> Detrás de las reservas está la organización. El admin o coordinador gestiona toda la estructura académica —facultades, departamentos, laboratorios y personas— que refleja la jerarquía real de UTEC. Y desde aquí se pueden <b>activar o desactivar laboratorios</b>: un lab desactivado deja de aparecer para los alumnos y no acepta reservas, sin perder su información. Útil cuando un lab sale de servicio o aún no está listo.
+<hr>
+<b>Términos (por si preguntan):</b>
+<ul>
+<li><b>Activo / Inactivo</b>: estado administrativo del lab. Inactivo = no reservable ni visible para el alumno, pero se conserva su historial y datos.</li>
+<li><b>Cascada responsable → director → departamento</b>: al asignar el responsable de un lab, el sistema autocompleta su director y departamento según la estructura real.</li>
+</ul>
+<b>Posibles dudas:</b>
+<ul>
+<li><i>¿Desactivar borra el laboratorio?</i> → No, solo lo oculta y bloquea nuevas reservas; se puede reactivar cuando vuelva a estar disponible.</li>
+<li><i>¿Quién puede hacerlo?</i> → Admin y Coordinador (gestión total); el Responsable solo gestiona sus propios labs.</li>
+</ul>
+</aside>
+</section>
+
+<!-- Programación Académica (aulas + horario) -->
+<section data-background-color="#FFFFFF">
+  <span class="kicker">Docencia</span><h2>Programación Académica y Ambientes</h2><div class="rule"></div>
+  <div class="row top">
+    <div style="flex:1;"><ul class="clean">
+      <li><strong>Importa el horario oficial</strong> del ciclo (Excel): crea aulas, cursos, clases y docentes — re-subir <strong>no duplica</strong></li>
+      <li>Clases recurrentes con <strong>semanas A/B</strong>, proyectadas sobre el calendario académico real</li>
+      <li><strong>Ciclos configurables</strong>: fechas, exámenes y feriados (derivados automáticamente)</li>
+      <li><strong>Calendario único</strong> para el alumno: clases + eventos + ocupación del lab, y <strong>Buscar ambientes libres</strong></li>
+      <li>Bloqueo de <strong>aulas y auditorios</strong> para eventos</li>
+    </ul></div>
+    <figure class="center" style="margin:0; flex:1.4;"><img class="shot" src="../manuales/manual-img/ad-09-programacion.png" style="max-height:46vh;"><figcaption>Apartado Programación Académica (Docencia)</figcaption></figure>
+  </div>
+  <aside class="notes">
+<b>Qué decir:</b> El sistema ya no es solo laboratorios: cubre las aulas y el horario académico. El counter de Docencia importa el Excel oficial del ciclo y el sistema arma todo: aulas, cursos, las clases recurrentes con semanas A y B, y hasta las cuentas de los docentes. El alumno ve un calendario único con sus clases, los eventos y la ocupación de cada lab, y puede buscar ambientes libres a una hora dada.
+<hr>
+<b>Términos:</b> <b>Semanas A/B</b> = clases quincenales que alternan semana por medio. <b>Ciclo académico</b> = periodo lectivo (2026-1, 2026-2…) con sus fechas configurables.
+</aside>
+</section>
+
+<!-- Capacidad real: retiro, cierre, servicios -->
+<section data-background-color="#FFFFFF">
+  <span class="kicker">Operación</span><h2>La capacidad refleja la realidad del campus</h2><div class="rule"></div>
+  <div class="grid g3" style="margin-top:.5em;">
+    <div class="card acc-left fragment">
+      <h3 style="font-size:.85em;">Retiro de mesas</h3>
+      <p style="font-size:.58em;">Si se llevan mesas por un ciclo, se <strong>retiran</strong> del sistema: no se reservan, la analítica descuenta su capacidad y <strong>no chocan con eventos</strong>. Vuelven con un clic.</p>
+    </div>
+    <div class="card acc-left fragment">
+      <h3 style="font-size:.85em;">Cierre institucional</h3>
+      <p style="font-size:.58em;"><strong>Una sola entrada</strong> cierra toda UTEC por un rango (feriado institucional): sin clases, sin reservas en ningún lab, y el dashboard lo descuenta.</p>
+    </div>
+    <div class="card cyan acc-left fragment">
+      <h3 style="font-size:.85em;">Servicios del lab</h3>
+      <p style="font-size:.58em;">Cada lab publica sus <strong>servicios</strong> (FabLab → <strong>Impresiones 3D</strong>) con botón <strong>Solicitar</strong> — el alumno pide en línea, sin reservar mesa, y puede <strong>filtrar labs por servicio</strong>.</p>
+    </div>
+  </div>
+  <p class="center" style="margin-top:.9em; font-size:.56em;">Tres mecanismos para que las cifras del dashboard midan la capacidad <strong>real</strong>, no la teórica.</p>
+  <aside class="notes">
+<b>Qué decir:</b> Tres capacidades operativas recientes. Uno: si a un lab le retiran mesas físicamente por un ciclo, se retiran también del sistema — no aparecen como reservables y la analítica no castiga al lab por mesas que no tiene. Dos: un feriado institucional se declara una sola vez y cierra toda la universidad. Y tres: los FabLab ofrecen servicios como impresiones 3D — el alumno los solicita en línea con un botón, sin necesidad de reservar una mesa.
+</aside>
+</section>
+
+<!-- Dashboard 1: KPIs + Mapa de calor -->
+<section data-background-color="#FFFFFF">
+  <span class="kicker">Dirección</span><h2>Dashboard ejecutivo</h2><div class="rule"></div>
+  <figure class="center" style="margin:0 0 .55em;"><img class="shot" src="../manuales/manual-img/dash-00-kpis-solo.png" style="height:16vh; width:auto; max-width:100%;"><figcaption>Indicadores clave (KPIs)</figcaption></figure>
+  <figure class="center" style="margin:0;"><img class="shot" src="../manuales/manual-img/dash-03-mapacalor.png" style="max-height:44vh;"><figcaption>Mapa de calor: intensidad de uso por día y hora → identifica las franjas pico</figcaption></figure>
+  <aside class="notes">
+<b>Qué decir:</b> Aquí está el valor para dirección: los KPIs resumen el estado —reservas, aprovechamiento, ocupación— y el mapa de calor muestra las horas y días de mayor demanda, para decidir cuándo reforzar o abrir espacios. Todo sobre datos reales importados de Affluences.
+<hr>
+<b>Términos (por si preguntan):</b>
+<ul>
+<li><b>KPI</b>: indicador clave; una métrica resumen (ej. % de ocupación, ausentismo, total de reservas).</li>
+<li><b>Mapa de calor</b>: gráfica que colorea cada franja por intensidad de uso; entre más oscuro/intenso, más demanda. Identifica las horas pico de un vistazo.</li>
+<li><b>Affluences</b>: el sistema previo de reservas del cual importamos los datos históricos reales.</li>
+</ul>
+<b>Posible duda:</b>
+<ul>
+<li><i>¿Los datos son reales o de ejemplo?</i> → Reales: importados de Affluences. Al operar en vivo se enriquecen con lead time y no-shows.</li>
+</ul>
+</aside>
+</section>
+
+<!-- Dashboard 2: Carreras + Proyección -->
+<section data-background-color="#FFFFFF">
+  <span class="kicker">Dirección</span><h2>Analítica para decisiones</h2><div class="rule"></div>
+  <div class="row top">
+    <figure class="center" style="margin:0; flex:1;"><img class="shot" src="../manuales/manual-img/dash-09-carrera.png" style="max-height:50vh;"><figcaption>Reservas por carrera</figcaption></figure>
+    <figure class="center" style="margin:0; flex:1;"><img class="shot" src="../manuales/manual-img/dash-19-proyeccion.png" style="max-height:50vh;"><figcaption>Proyección de demanda (predictivo)</figcaption></figure>
+  </div>
+  <p class="center" style="margin-top:.4em; font-size:.56em;">Además: resumen ejecutivo con comparación vs. periodo anterior, vista <strong>Uso del lab (OEE)</strong> — ocupación con reservas + eventos + clases — y <strong>reporte PDF</strong> de una hoja.</p>
+  <aside class="notes">
+<b>Qué decir:</b> El dashboard también responde preguntas de gestión: qué carreras usan más los laboratorios —para planificar cupos— y una proyección de la demanda de los próximos meses. Y todo se puede exportar en un reporte ejecutivo de una hoja en PDF.
+<hr>
+<b>Términos (por si preguntan):</b>
+<ul>
+<li><b>Reservas por carrera</b>: cuenta por participante (una reserva de varios alumnos suma a varias carreras).</li>
+<li><b>Proyección de demanda</b>: estimación de los próximos meses con una regresión lineal sobre el histórico (línea punteada).</li>
+<li><b>Resumen ejecutivo</b>: comparación automática contra el periodo anterior (▲/▼) con conclusiones en texto.</li>
+</ul>
+<b>Posible duda:</b>
+<ul>
+<li><i>¿La proyección es confiable?</i> → Es una tendencia indicativa sobre los datos históricos; mejora cuando el sistema opere en vivo con más datos.</li>
+</ul>
+</aside>
+</section>
+
+<!-- Notificaciones -->
+<section data-background-color="#FFFFFF">
+  <span class="kicker">Automatización</span><h2>Correos automáticos</h2><div class="rule"></div>
+  <div class="row" style="align-items:center;">
+    <figure class="center" style="margin:0; flex:1.5;"><img class="shot" src="../manuales/manual-img/email-reserva.png" style="max-height:56vh;"><figcaption>Correo real al reservar</figcaption></figure>
+    <div style="flex:1;"><ul class="clean">
+      <li>Al <strong>reservar</strong> (recuerda el check-in)</li>
+      <li>Al hacer <strong>check-in</strong> (queda "en curso")</li>
+      <li>Al <strong>bloquear</strong> (total/parcial, con recursos)</li>
+      <li>Envío asíncrono: nunca frena la operación</li>
+    </ul></div>
+  </div>
+  <aside class="notes">El sistema notifica solo: al reservar, al hacer check-in y al bloquear. De forma asíncrona, así un fallo de correo nunca frena la operación de negocio.</aside>
+</section>
+
+<!-- DEMO EN VIVO -->
+<section class="dark" data-background-color="#231F20">
+  <div class="sideband"></div>
+  <span class="kicker">Momento demo</span>
+  <h1>Veámoslo en vivo</h1>
+  <p style="font-size:.7em;">Abrimos la plataforma real y recorremos el flujo completo.</p>
+  <div style="margin-top:1.2em; display:flex; gap:20px; align-items:center;">
+    <a class="launch" href="http://localhost:5173" target="_blank" rel="noopener">▶ Abrir demo (local)</a>
+    <a class="launch ghost" href="https://unmolded-hedge-concierge.ngrok-free.dev" target="_blank" rel="noopener">Abrir demo (enlace público)</a>
+  </div>
+  <p style="margin-top:1em; font-size:.5em; color:#8F8F8F;">Sugerencia: reservar → check-in QR → bloqueo → dashboard. Alt+Tab para volver a la presentación.</p>
+  <aside class="notes">Momento de la demo en vivo. Abro la plataforma real. Recorrido: reservar una mesa y mostrar el correo, hacer check-in por QR, crear un bloqueo, y recorrer el dashboard. Al terminar, Alt+Tab para volver a la presentación.</aside>
+</section>
+
+<!-- ================= SECCIÓN 02 · TÉCNICO ================= -->
+<section class="dark" data-background-color="#231F20">
+  <div class="sideband"></div>
+  <span class="kicker">Parte 02</span>
+  <div class="section-tag">02</div>
+  <h1 style="margin-top:.1em;">Arquitectura y tecnología</h1>
+  <p style="font-size:.7em;">Cómo está construido y documentado el sistema.</p>
+  <aside class="notes">Pasamos a la parte técnica: cómo está construido y documentado el sistema.</aside>
+</section>
+
+<!-- Arquitectura -->
+<section data-background-color="#FFFFFF">
+  <img class="logo-tr" src="../../frontend/src/assets/utec-logo.png">
+  <span class="kicker">Sesión técnica</span><h2>Arquitectura del sistema</h2><div class="rule"></div>
+  <p style="font-size:.58em; margin:0 0 .5em; max-width:46em;">El <strong>navegador</strong> (frontend) pide datos a la <strong>API</strong> (backend); la API aplica la lógica y consulta la <strong>base de datos</strong>. <strong>Redis</strong> acelera con caché y <strong>RabbitMQ</strong> envía los correos en segundo plano. Todo empaquetado en <strong>Docker</strong>, desplegable donde TI indique.</p>
+  <div class="row top">
+    <figure class="center" style="margin:0; flex:1.4;"><img class="shot" src="../diagrams/system-architecture.svg" style="max-height:42vh;"><figcaption>Diagrama de arquitectura (C4 · contenedores)</figcaption></figure>
+    <div style="flex:1;" class="stack">
+      <div class="k">Frontend</div><div class="v">React + TypeScript · lo que ve el usuario</div>
+      <div class="k">Backend</div><div class="v">Java 21 + Spring Boot · lógica y API REST</div>
+      <div class="k">Datos</div><div class="v">PostgreSQL · Flyway versiona el esquema</div>
+      <div class="k">Apoyo</div><div class="v">Redis (caché) · RabbitMQ (correos async)</div>
+      <div class="k">Auth</div><div class="v">Google OAuth2 + JWT (cookie segura)</div>
+      <div class="k">Deploy</div><div class="v">Docker · igual en cualquier servidor</div>
+    </div>
+  </div>
+  <aside class="notes">
+<b>Qué decir:</b> En el frontend, React con TypeScript. En el backend, Java 21 con Spring Boot, una API REST por capas. Base de datos PostgreSQL, con Redis para caché y RabbitMQ para los correos. Autenticación con Google OAuth2 y JWT. Todo en Docker, listo para desplegar donde TI indique.
+<hr>
+<b>Términos (por si preguntan):</b>
+<ul>
+<li><b>Frontend</b>: lo que ve el usuario en el navegador. <b>Backend</b>: el servidor con la lógica y los datos.</li>
+<li><b>React</b>: librería para construir la interfaz. <b>TypeScript</b>: JavaScript con tipos → menos errores. <b>Vite</b>: compila y sirve el frontend. <b>Tailwind</b>: framework de estilos.</li>
+<li><b>Spring Boot</b>: framework de Java para construir el backend. <b>API REST</b>: la forma en que frontend y backend se comunican por HTTP.</li>
+<li><b>PostgreSQL</b>: la base de datos (relacional). <b>Redis</b>: memoria caché para acelerar. <b>RabbitMQ</b>: cola de mensajes para tareas en segundo plano (enviar correos sin frenar la operación).</li>
+<li><b>Flyway</b>: controla las versiones de la base de datos (los cambios de esquema son ordenados y reproducibles).</li>
+<li><b>Docker / Docker Compose</b>: empaqueta la app y sus servicios en "contenedores" para que funcione igual en cualquier servidor.</li>
+<li><b>C4</b>: una notación estándar para dibujar la arquitectura por niveles.</li>
+</ul>
+<b>Posibles dudas:</b>
+<ul>
+<li><i>¿Dónde se despliega?</i> → Hoy en local con un túnel para la demo; en Docker, listo para el servidor que ustedes definan.</li>
+<li><i>¿Por qué esas tecnologías?</i> → Estándar, maduras, con soporte y comunidad; fáciles de mantener y contratar.</li>
+<li><i>¿Se integra con sistemas UTEC?</i> → Ya consume la data de matriculados; abierto a integrar SSO o Google Calendar.</li>
+</ul>
+</aside>
+</section>
+
+<!-- Casos de uso -->
+<section data-background-color="#FFFFFF">
+  <span class="kicker">Sesión técnica</span><h2>Casos de uso por rol</h2><div class="rule"></div>
+  <figure class="center" style="margin:0;"><img class="shot" src="../diagrams/use-cases-uml.svg" style="max-height:52vh;"><figcaption>Diagrama de casos de uso — qué puede hacer cada actor (Alt+clic para ampliar)</figcaption></figure>
+  <aside class="notes">Este diagrama resume formalmente qué puede hacer cada actor del sistema. Está documentado. Puedo ampliarlo con Alt+clic si quieren verlo en detalle.</aside>
+</section>
+
+<!-- Flujo de reserva -->
+<section data-background-color="#FFFFFF">
+  <span class="kicker">Sesión técnica</span><h2>Flujo de una reserva</h2><div class="rule"></div>
+  <figure class="center" style="margin:0;"><img class="shot" src="../diagrams/reservation-flow-sequence.svg" style="max-height:52vh;"><figcaption>Diagrama de secuencia — reserva con anti-doble-reserva (Alt+clic para ampliar)</figcaption></figure>
+  <aside class="notes">
+<b>Qué decir:</b> Este es el flujo interno de una reserva, con la protección anti-doble-reserva a nivel de base de datos: es imposible que dos personas tomen la misma mesa a la misma hora.
+<hr>
+<b>Términos (por si preguntan):</b>
+<ul>
+<li><b>Diagrama de secuencia</b>: muestra, paso a paso y en orden de tiempo, cómo interactúan el usuario, el frontend, el backend y la base de datos en una operación.</li>
+<li><b>Anti-doble-reserva</b>: una regla en la propia base de datos (no solo en la app) que rechaza dos reservas solapadas del mismo recurso. Aunque dos personas hagan clic exactamente al mismo tiempo, solo una gana.</li>
+<li><b>Concurrencia</b>: varios usuarios operando a la vez; la regla anterior garantiza que no se pisen.</li>
+</ul>
+<b>Posible duda:</b>
+<ul>
+<li><i>¿Y si dos reservan la misma mesa al mismo tiempo?</i> → La base de datos rechaza la segunda automáticamente; nunca hay doble reserva.</li>
+</ul>
+</aside>
+</section>
+
+<!-- Documentación y calidad -->
+<section data-background-color="#FFFFFF">
+  <img class="logo-tr" src="../../frontend/src/assets/utec-logo.png">
+  <span class="kicker">Sesión técnica</span><h2>Documentación y calidad</h2><div class="rule"></div>
+  <div class="grid g2" style="margin-top:.3em;">
+    <div class="card cyan acc-left">
+      <h3 style="font-size:.9em;">16 entregables de ingeniería</h3>
+      <ul class="clean">
+        <li>Diagramas C4, ERD, clases y secuencia</li>
+        <li>Documentación de API y matriz de roles</li>
+        <li>Manual técnico y manuales de usuario (PDF)</li>
+      </ul>
+    </div>
+    <div class="card soft">
+      <div class="grid g2" style="gap:18px;">
+        <div class="stat"><div class="n">357</div><div class="l">Tests backend</div></div>
+        <div class="stat"><div class="n">279</div><div class="l">Tests frontend</div></div>
+        <div class="stat"><div class="n">94<span class="u">%</span></div><div class="l">Cobertura backend</div></div>
+        <div class="stat"><div class="n">85<span class="u">%</span></div><div class="l">Cobertura frontend</div></div>
+      </div>
+      <p style="font-size:.52em; margin-top:1em;">CI en GitHub Actions: bloquea si baja la cobertura.</p>
+    </div>
+  </div>
+  <aside class="notes">
+<b>Qué decir:</b> Hay 16 entregables de ingeniería: diagramas, documentación de API, matriz de roles y manuales. En calidad: casi 300 pruebas automatizadas en el backend y 215 en el frontend, con más del 90 y 85 por ciento de cobertura. Integración continua que bloquea si baja la cobertura.
+<hr>
+<b>Términos (por si preguntan):</b>
+<ul>
+<li><b>Pruebas automatizadas (tests)</b>: código que verifica solo que cada parte del sistema funcione; se corren en segundos y atrapan errores antes de producción.</li>
+<li><b>Cobertura</b>: porcentaje del código que las pruebas ejercitan. 90% backend = casi todo el código está verificado.</li>
+<li><b>CI (Integración Continua) / GitHub Actions</b>: en cada cambio, un robot corre todas las pruebas automáticamente; si algo falla o baja la cobertura, no se integra.</li>
+<li><b>Diagrama C4</b>: la arquitectura dibujada en niveles (contexto → contenedores → componentes). <b>ERD</b>: el mapa de las tablas de la base de datos y sus relaciones. <b>API</b>: la lista de operaciones que ofrece el backend.</li>
+<li><b>Matriz de roles</b>: tabla de qué puede hacer cada rol.</li>
+</ul>
+<b>Posibles dudas:</b>
+<ul>
+<li><i>¿Está documentado para dar mantenimiento?</i> → Sí, 16 entregables + manual técnico + pruebas; facilita la continuidad si cambia el responsable.</li>
+<li><i>¿Cómo aseguran que no se rompa al cambiar algo?</i> → Las ~500 pruebas y la CI actúan de red de seguridad en cada cambio.</li>
+</ul>
+</aside>
+</section>
+
+<!-- Manuales de usuario -->
+<section data-background-color="#FFFFFF">
+  <img class="logo-tr" src="../../frontend/src/assets/utec-logo.png">
+  <span class="kicker">Sesión técnica</span><h2>Tres manuales de usuario ilustrados</h2><div class="rule"></div>
+  <div class="grid g3" style="margin-top:.3em;">
+    <div class="card acc-left center">
+      <img class="shot shot-sm" src="../manuales/manual-img/al-02-detalle-grid.png" style="max-height:24vh;">
+      <h3 style="font-size:.85em; margin-top:.5em;">Manual del Alumno</h3>
+      <p style="font-size:.54em;">Reservar, check-in, servicios y calendario, paso a paso.</p>
+      <a class="launch ghost" style="font-size:.52em; padding:10px 18px;" href="../manuales/15a-manual-alumnos.pdf" target="_blank" rel="noopener">Abrir PDF ▸</a>
+    </div>
+    <div class="card acc-left center">
+      <img class="shot shot-sm" src="../manuales/manual-img/ad-06-organizacion.png" style="max-height:24vh;">
+      <h3 style="font-size:.85em; margin-top:.5em;">Administrativo de Labs</h3>
+      <p style="font-size:.54em;">Guía por rol: recursos, retiros, bloqueos, dashboard y organización.</p>
+      <a class="launch ghost" style="font-size:.52em; padding:10px 18px;" href="../manuales/15b-manual-administrativos.pdf" target="_blank" rel="noopener">Abrir PDF ▸</a>
+    </div>
+    <div class="card acc-left center">
+      <img class="shot shot-sm" src="../manuales/manual-img/ad-09-programacion.png" style="max-height:24vh;">
+      <h3 style="font-size:.85em; margin-top:.5em;">Programación Académica</h3>
+      <p style="font-size:.54em;">Docencia y docentes: horarios, aulas, ciclos y su consulta.</p>
+      <a class="launch ghost" style="font-size:.52em; padding:10px 18px;" href="../manuales/15c-manual-programacion-academica.pdf" target="_blank" rel="noopener">Abrir PDF ▸</a>
+    </div>
+  </div>
+  <aside class="notes">Preparé tres manuales ilustrados con capturas reales, uno por audiencia: el del alumno; el del administrativo de laboratorios, que empieza con una guía por rol; y el de Programación Académica para Docencia y los docentes. Puedo abrir cualquiera de los tres PDF.</aside>
+</section>
+
+<!-- ================= SECCIÓN 03 · ESCALA+SEG ================= -->
+<section class="dark" data-background-color="#231F20">
+  <div class="sideband"></div>
+  <span class="kicker">Parte 03</span>
+  <div class="section-tag">03</div>
+  <h1 style="margin-top:.1em;">Escalabilidad y seguridad</h1>
+  <p style="font-size:.7em;">Listo para crecer a toda la universidad, con los datos protegidos.</p>
+  <aside class="notes">Cerramos con escalabilidad y seguridad, que son las etapas de evaluación que propuso el equipo de TI.</aside>
+</section>
+
+<!-- Escalabilidad -->
+<section data-background-color="#FFFFFF">
+  <img class="logo-tr" src="../../frontend/src/assets/utec-logo.png">
+  <span class="kicker">Evaluación</span><h2>Escalabilidad</h2><div class="rule"></div>
+  <div class="row top">
+    <div class="card soft" style="flex:0 0 auto;"><div class="stat"><div class="n">9,528</div><div class="l">Alumnos reales cargados</div></div></div>
+    <div style="flex:1;"><ul class="clean">
+      <li><strong>Muchos usuarios a la vez</strong>: 100, 1000 o 2000+ alumnos simultáneos — sí funciona (un solo servidor ya lo soporta)</li>
+      <li><strong>Paginación</strong> + <strong>índices</strong>: no baja miles de registros de golpe; consultas rápidas</li>
+      <li><strong>ShedLock</strong>: permite <strong>replicar el servidor</strong> sin duplicar tareas programadas</li>
+      <li style="filter:none;"><span style="color:var(--cyan-ink); font-weight:600;">Único punto abierto (NO limita usuarios):</span> sincronizar el "tiempo real" entre varias copias del servidor (fan-out) — mejora para alta disponibilidad</li>
+    </ul></div>
+  </div>
+  <div class="card soft acc-left" style="margin-top:.7em; padding:14px 20px;">
+    <p style="font-size:.56em; margin:0;"><strong style="color:var(--cyan-ink);">¿Qué es ese "único punto abierto"?</strong> El <strong>tiempo real</strong>: cuando alguien reserva o hace check-in, las pantallas de los demás se actualizan al instante, sin recargar. Hoy funciona en <strong>un</strong> servidor. Con <strong>varias copias</strong> del servidor hay que "repartir" ese aviso entre ellas (fan-out). <strong>No limita usuarios ni bloquea nada</strong>: si no se hace, las pantallas igual se refrescan solas cada cierto tiempo. Es una mejora conocida para alta disponibilidad.</p>
+  </div>
+  <aside class="notes">
+<b>Qué decir:</b> Ya cargamos los más de 9,500 alumnos reales que TI nos compartió. Los listados grandes están paginados, y los procesos programados usan un bloqueo distribuido para escalar a varias instancias. Quiero ser transparente en un punto abierto: el tiempo real, si escalamos a múltiples servidores, necesita un ajuste que ya tenemos identificado.
+<hr>
+<b>Términos (por si preguntan):</b>
+<ul>
+<li><b>Paginación</b>: traer los datos de a pocos (página por página) en vez de miles de golpe → la pantalla no se cuelga.</li>
+<li><b>Escalar horizontalmente / multi-instancia</b>: correr varias copias del backend en paralelo para atender más usuarios.</li>
+<li><b>ShedLock</b>: un "candado" compartido que garantiza que una tarea programada (ej. liberar reservas) corra UNA sola vez aunque haya varios servidores.</li>
+<li><b>Índices (base de datos)</b>: estructuras que hacen que las búsquedas sean rápidas incluso con muchos registros.</li>
+<li><b>Anti-doble-reserva</b>: regla en la base de datos que impide dos reservas de la misma mesa a la misma hora, incluso con usuarios simultáneos.</li>
+<li><b>SSE (Server-Sent Events)</b>: el servidor "empuja" los cambios al navegador en tiempo real, sin tener que recargar.</li>
+<li><b>Fan-out</b>: repartir un mismo evento a todas las instancias; es el ajuste pendiente para el tiempo real multi-servidor (se haría con Redis o RabbitMQ, que ya usamos).</li>
+</ul>
+<b>Posibles dudas:</b>
+<ul>
+<li><i>¿Cuántos alumnos pueden usarlo a la vez?</i> → Muchos —100, 1000, 2000+— en un solo servidor. La concurrencia la maneja Spring Boot; el límite depende del hardware, no del diseño. Si se necesita más, se replica el servidor.</li>
+<li><i>Entonces, ¿qué es el "punto abierto"?</i> → NO es un límite de usuarios. Es que el "empuje en tiempo real" (que refresca las pantallas al instante) hoy funciona bien en un servidor; para que funcione idéntico con VARIAS copias del servidor, falta el "fan-out". Es una mejora para alta disponibilidad, no un bloqueante: sin ella el sistema igual funciona (se refresca por consulta periódica).</li>
+</ul>
+</aside>
+</section>
+
+<!-- Seguridad -->
+<section data-background-color="#FFFFFF">
+  <img class="logo-tr" src="../../frontend/src/assets/utec-logo.png">
+  <span class="kicker">Evaluación</span><h2>Seguridad</h2><div class="rule"></div>
+  <div class="row" style="align-items:center; gap:22px; margin-bottom:.7em;">
+    <div class="badge" style="margin:0;"><span class="dot"></span>2 auditorías internas (OWASP 2025 / CWE Top 25) · Risk 28/100 · 0 críticas · 0 altas</div>
+    <img src="pres-assets/owasp.png" alt="OWASP" style="height:40px;">
+  </div>
+  <ul class="clean">
+    <li>Google OAuth2 + JWT; refresh en cookie <strong>HttpOnly + Secure + SameSite</strong> (anti-XSS)</li>
+    <li>Autorización por rol y por pertenencia; protección <strong>anti-IDOR</strong> endpoint por endpoint</li>
+    <li><strong>Tráfico cifrado (HTTPS/TLS)</strong> y <strong>registro de auditoría</strong> de acciones sensibles</li>
+    <li>Secretos fuera del repositorio · cabeceras HSTS/CSP · actuator protegido · CORS restringido</li>
+    <li><span style="color:var(--cyan-ink); font-weight:600;">Abierto a alinear con las políticas y estándares de seguridad de UTEC</span></li>
+  </ul>
+  <aside class="notes">
+<b>Qué decir:</b> Hicimos dos auditorías internas con metodología OWASP: riesgo medio, sin hallazgos críticos ni altos. El token de sesión va en una cookie protegida contra robo, la autorización valida que cada quien solo toque lo suyo, y los secretos están fuera del repositorio. Y algo importante: estamos totalmente abiertos a alinear el sistema con las políticas y estándares de seguridad de UTEC.
+<hr>
+<b>Términos (por si preguntan):</b>
+<ul>
+<li><b>XSS</b> (Cross-Site Scripting): ataque que inyecta JavaScript malicioso en la página para robar la sesión del usuario. <i>Nos protegemos</i> guardando el token en una cookie que el JavaScript NO puede leer.</li>
+<li><b>IDOR</b>: cuando alguien accede a datos ajenos cambiando un número en la URL (ej. /reservas/5 → /reservas/6). <i>Lo bloqueamos</i>: el servidor verifica que seas el dueño o tengas el rol.</li>
+<li><b>OAuth2</b>: el estándar de "iniciar sesión con Google". Delegamos el login a Google; nosotros no manejamos contraseñas.</li>
+<li><b>JWT</b>: un "carné digital" firmado que prueba quién eres en cada petición, sin volver a pedir contraseña.</li>
+<li><b>Cookie HttpOnly</b>: cookie que el navegador guarda pero el código de la página no puede leer → a prueba de XSS. <b>Secure</b>: solo viaja por HTTPS. <b>SameSite</b>: solo se envía desde nuestro propio sitio (frena falsificación de peticiones / CSRF).</li>
+<li><b>HSTS / CSP</b>: cabeceras de seguridad. HSTS obliga a usar siempre HTTPS; CSP limita de dónde puede cargar scripts el navegador (mitiga XSS).</li>
+<li><b>CORS</b>: regla de qué dominios pueden llamar a nuestra API desde el navegador (solo los nuestros).</li>
+<li><b>OWASP / CWE</b>: listas estándar de la industria de las fallas más comunes; usamos su metodología para auditar. <b>Risk 28/100</b> = riesgo medio-bajo.</li>
+</ul>
+<b>Posibles dudas:</b>
+<ul>
+<li><i>¿Guardan contraseñas?</i> → No, delegamos en Google OAuth institucional.</li>
+<li><i>¿Qué datos sensibles almacenan?</i> → Solo correo institucional, nombre y carrera.</li>
+<li><i>¿Quién auditó?</i> → Auditoría interna con herramienta automatizada (metodología OWASP); abierta a su revisión formal.</li>
+</ul>
+</aside>
+</section>
+
+<!-- Próximos pasos -->
+<section data-background-color="#FFFFFF">
+  <img class="logo-tr" src="../../frontend/src/assets/utec-logo.png">
+  <span class="kicker">Cierre</span><h2>Próximos pasos propuestos</h2><div class="rule"></div>
+  <div style="display:flex; flex-direction:column; gap:14px; margin-top:.3em;">
+    <div class="row fragment"><div class="num">1</div><p style="margin:0; font-size:.66em;">Sesión técnica con TI: arquitectura, tecnología y documentación</p></div>
+    <div class="row fragment"><div class="num">2</div><p style="margin:0; font-size:.66em;"><strong>Prueba de carga</strong>: verificar el sistema con la demanda esperada (usuarios simultáneos y todos los labs) y ajustar la infraestructura a los estándares de UTEC</p></div>
+    <div class="row fragment"><div class="num">3</div><p style="margin:0; font-size:.66em;">Piloto en los labs de Proyectos e Infraestructura Académica</p></div>
+    <div class="row fragment"><div class="num">4</div><p style="margin:0; font-size:.66em;">Definir entorno de despliegue e integraciones (SSO institucional)</p></div>
+    <div class="row fragment"><div class="num">5</div><p style="margin:0; font-size:.66em;">Extensión progresiva al resto de laboratorios de la universidad</p></div>
+  </div>
+  <aside class="notes"><b>Qué decir:</b> Como próximos pasos propongo: la sesión técnica a detalle con su equipo; una prueba de carga; un piloto en los labs de Proyectos e Infraestructura; definir el entorno de despliegue; y de ahí escalar al resto de laboratorios.
+<hr>
+<b>Sobre el paso 2 (por si preguntan):</b> "Validación de escalabilidad" = hacer una <b>prueba de carga</b>: simular muchos usuarios usando el sistema a la vez (p. ej. cientos o miles reservando en el mismo momento) y medir que responda bien, sin lentitud ni errores. Con ese resultado se ajusta la infraestructura (memoria, número de servidores, base de datos) a los estándares de TI. Es el paso que confirma, con datos, lo que en diseño ya soporta.</aside>
+</section>
+
+<!-- Cierre -->
+<section class="dark" data-background-color="#231F20">
+  <div class="sideband"></div><div class="sideband2"></div>
+  <div class="row" style="gap:56px; align-items:center;">
+    <div style="flex:1;">
+      <h1>Gracias</h1>
+      <div class="rule"></div>
+      <p style="font-size:.7em;"><strong style="color:var(--cyan);">David Lazo</strong> — Responsable Jr., Concept Lab</p>
+      <p style="font-size:.58em;">dlazo@utec.edu.pe</p>
+    </div>
+    <div style="flex:0 0 auto; margin-right:70px;">
+      <img src="perfil.jpg" alt="David Lazo" style="width:300px; height:300px; border-radius:50%; object-fit:cover; object-position:center 22%; border:6px solid var(--cyan); box-shadow:0 12px 40px rgba(0,0,0,.5);">
+    </div>
+  </div>
+  <aside class="notes">Eso sería. Muchas gracias por su tiempo. Quedo atento a sus preguntas y comentarios.</aside>
+</section>
+
+</div></div>
+
+<!-- reveal.js (LOCAL) -->
+<script src="vendor/reveal/dist/reveal.js"></script>
+<script src="vendor/reveal/plugin/notes/notes.js"></script>
+<script src="vendor/reveal/plugin/zoom/zoom.js"></script>
+<script>
+const __print = /print-pdf/gi.test(window.location.search);
+Reveal.initialize({
+  width: 1280, height: 720, margin: 0.045,
+  minScale: 0.2, maxScale: 1.6,
+  hash: true, slideNumber: 'c/t', controls: true, progress: true,
+  transition: 'slide', transitionSpeed: 'default', backgroundTransition: 'fade',
+  // Al exportar a PDF (?print-pdf) incluimos las notas del orador en una página aparte.
+  showNotes: __print ? 'separate-page' : false,
+  plugins: [ RevealNotes, RevealZoom ]
+});
+</script>
+</body>
+</html>

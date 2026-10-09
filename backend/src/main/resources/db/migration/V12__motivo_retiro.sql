@@ -1,0 +1,16 @@
+-- V12 (jul-2026): motivo de bloqueo "RETIRO" — mesas retiradas físicamente por un periodo
+-- (p. ej. un ciclo). NO es un evento ni un mantenimiento: es una REDUCCIÓN DE CAPACIDAD del
+-- lab durante un rango de fechas. Se modela como un bloqueo PARCIAL (recursos = mesas fuera)
+-- de todo el día (horas null) sobre fecha_inicio..fecha_fin.
+--
+-- Semántica (ver BloqueoService/AnalyticsRepository):
+--   · Operativo: no envía correo y se EXCLUYE de los KPIs de bloqueos/eventos del dashboard.
+--   · Downtime de capacidad: sus mesas-hora se restan de la capacidad del lab (como feriado/
+--     mantenimiento), así el % de ocupación se calcula sobre las mesas que sí existen.
+--   · NO compite con eventos: un RETIRO no choca con un evento total/parcial (el retiro no es
+--     un ocupante que reserva horario, es capacidad que desaparece) → sin "doble flujo".
+--   · Sí impide reservas del alumno sobre esas mesas (bloqueo parcial normal) y avisa si ya
+--     hay reservas activas al retirarlas.
+--
+-- Patrón ADD VALUE IF NOT EXISTS (igual que V3/V5), idempotente.
+ALTER TYPE motivo_bloqueo ADD VALUE IF NOT EXISTS 'RETIRO';

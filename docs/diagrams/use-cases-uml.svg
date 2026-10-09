@@ -1,0 +1,106 @@
+<svg width="100%" viewBox="0 0 820 700" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Diagrama de casos de uso (UML) — UTEC Ambientes</title>
+  <desc>Actores (Estudiante, Responsable, Director, Coordinador, Admin, Docencia, Docente) y los casos de uso (óvalos) dentro de la frontera del sistema, con relaciones de asociación.</desc>
+  <style>
+    text{font-family:"system-ui", -apple-system,"system-ui","Segoe UI",sans-serif}
+    .actor{stroke:#3D3D3A;stroke-width:1.6;fill:none;stroke-linecap:round}
+    .aname{font-size:12px;font-weight:600;text-anchor:middle;fill:#3D3D3A}
+    .boundary{fill:#FAFAF7;stroke:#9C9A92;stroke-width:1.2}
+    .btitle{font-size:13px;font-weight:600;fill:#5F5E5A;text-anchor:middle}
+    .uc{fill:#E6F1FB;stroke:#185FA5;stroke-width:1}
+    .ucb{fill:#FDF1E3;stroke:#B5701E;stroke-width:1}
+    .ucr{fill:#FCEBEB;stroke:#A32D2D;stroke-width:1}
+    .uct{font-size:10.5px;text-anchor:middle;fill:#16302b}
+    .assoc{stroke:#B8B6AD;stroke-width:1;fill:none}
+    .cap{font-size:10.5px;fill:#5F5E5A}
+  </style>
+
+  <text x="410" y="22" class="btitle" style="font-size:15px;fill:#3D3D3A">Casos de uso (UML)</text>
+
+  <!-- System boundary -->
+  <rect x="210" y="48" width="400" height="600" rx="14" class="boundary"/>
+  <text x="410" y="68" class="btitle">Sistema: UTEC Ambientes</text>
+
+  <!-- Associations (debajo de óvalos) -->
+  <g class="assoc">
+    <!-- Estudiante -->
+    <line x1="92" y1="135" x2="250" y2="100"/>
+    <line x1="92" y1="135" x2="250" y2="170"/>
+    <line x1="92" y1="135" x2="250" y2="240"/>
+    <line x1="92" y1="135" x2="250" y2="310"/>
+    <line x1="92" y1="135" x2="250" y2="380"/>
+    <!-- Responsable -->
+    <line x1="92" y1="315" x2="250" y2="240"/>
+    <line x1="92" y1="315" x2="470" y2="115"/>
+    <line x1="92" y1="315" x2="470" y2="185"/>
+    <!-- Director -->
+    <line x1="92" y1="478" x2="470" y2="115"/>
+    <line x1="92" y1="478" x2="470" y2="255"/>
+    <!-- Coordinador -->
+    <line x1="728" y1="178" x2="610" y2="185"/>
+    <line x1="728" y1="178" x2="610" y2="255"/>
+    <line x1="728" y1="178" x2="610" y2="325"/>
+    <!-- Admin -->
+    <line x1="728" y1="428" x2="610" y2="325"/>
+    <line x1="728" y1="428" x2="610" y2="395"/>
+    <line x1="728" y1="428" x2="610" y2="460"/>
+    <line x1="728" y1="428" x2="610" y2="525"/>
+    <!-- Estudiante → horario / ambientes libres -->
+    <line x1="92" y1="135" x2="250" y2="450"/>
+    <line x1="92" y1="135" x2="250" y2="520"/>
+    <!-- Coordinador → programación académica -->
+    <line x1="728" y1="178" x2="610" y2="590"/>
+    <!-- Docencia → programación académica + bloqueo (aulas) -->
+    <line x1="728" y1="615" x2="610" y2="590"/>
+    <line x1="728" y1="615" x2="610" y2="115"/>
+    <!-- Docente (solo consulta) → calendario / horario / ambientes libres -->
+    <line x1="92" y1="615" x2="250" y2="380"/>
+    <line x1="92" y1="615" x2="250" y2="450"/>
+    <line x1="92" y1="615" x2="250" y2="520"/>
+  </g>
+
+  <!-- Use cases: columna A -->
+  <g><ellipse cx="320" cy="100" rx="82" ry="22" class="uc"/><text x="320" y="104" class="uct">Iniciar sesión</text></g>
+  <g><ellipse cx="320" cy="170" rx="82" ry="22" class="uc"/><text x="320" y="174" class="uct">Reservar recurso</text></g>
+  <g><ellipse cx="320" cy="240" rx="82" ry="22" class="uc"/><text x="320" y="244" class="uct">Check-in (QR/manual)</text></g>
+  <g><ellipse cx="320" cy="310" rx="82" ry="22" class="uc"/><text x="320" y="314" class="uct">Cancelar/editar reserva</text></g>
+  <g><ellipse cx="320" cy="380" rx="82" ry="22" class="uc"/><text x="320" y="384" class="uct">Ver calendario</text></g>
+  <g><ellipse cx="320" cy="450" rx="82" ry="22" class="uc"/><text x="320" y="454" class="uct">Horario de clases</text></g>
+  <g><ellipse cx="320" cy="520" rx="82" ry="22" class="uc"/><text x="320" y="524" class="uct">Buscar ambientes libres</text></g>
+
+  <!-- Use cases: columna B -->
+  <g><ellipse cx="528" cy="115" rx="84" ry="22" class="ucb"/><text x="528" y="119" class="uct">Crear/editar bloqueo (lab/aula)</text></g>
+  <g><ellipse cx="528" cy="185" rx="84" ry="22" class="ucb"/><text x="528" y="189" class="uct">Gestionar lab y recursos</text></g>
+  <g><ellipse cx="528" cy="255" rx="84" ry="22" class="uc"/><text x="528" y="259" class="uct">Dashboard / KPIs</text></g>
+  <g><ellipse cx="528" cy="325" rx="84" ry="22" class="uc"/><text x="528" y="329" class="uct">Gestionar usuarios</text></g>
+  <g><ellipse cx="528" cy="395" rx="84" ry="22" class="ucr"/><text x="528" y="399" class="uct">Organización (jerarquía)</text></g>
+  <g><ellipse cx="528" cy="460" rx="84" ry="22" class="ucr"/><text x="528" y="464" class="uct">Respaldo</text></g>
+  <g><ellipse cx="528" cy="525" rx="84" ry="22" class="ucr"/><text x="528" y="529" class="uct">Auditoría</text></g>
+  <g><ellipse cx="528" cy="590" rx="84" ry="22" class="ucb"/><text x="528" y="594" class="uct">Programación académica</text></g>
+
+  <!-- Actores (figuras) -->
+  <!-- Estudiante -->
+  <g class="actor"><circle cx="70" cy="100" r="9"/><line x1="70" y1="109" x2="70" y2="134"/><line x1="55" y1="120" x2="85" y2="120"/><line x1="70" y1="134" x2="58" y2="152"/><line x1="70" y1="134" x2="82" y2="152"/></g>
+  <text x="70" y="170" class="aname">Estudiante</text>
+  <!-- Responsable -->
+  <g class="actor"><circle cx="70" cy="280" r="9"/><line x1="70" y1="289" x2="70" y2="314"/><line x1="55" y1="300" x2="85" y2="300"/><line x1="70" y1="314" x2="58" y2="332"/><line x1="70" y1="314" x2="82" y2="332"/></g>
+  <text x="70" y="350" class="aname">Responsable</text>
+  <!-- Director -->
+  <g class="actor"><circle cx="70" cy="443" r="9"/><line x1="70" y1="452" x2="70" y2="477"/><line x1="55" y1="463" x2="85" y2="463"/><line x1="70" y1="477" x2="58" y2="495"/><line x1="70" y1="477" x2="82" y2="495"/></g>
+  <text x="70" y="513" class="aname">Director</text>
+  <!-- Coordinador -->
+  <g class="actor"><circle cx="745" cy="143" r="9"/><line x1="745" y1="152" x2="745" y2="177"/><line x1="730" y1="163" x2="760" y2="163"/><line x1="745" y1="177" x2="733" y2="195"/><line x1="745" y1="177" x2="757" y2="195"/></g>
+  <text x="745" y="213" class="aname">Coordinador</text>
+  <!-- Admin -->
+  <g class="actor"><circle cx="745" cy="393" r="9"/><line x1="745" y1="402" x2="745" y2="427"/><line x1="730" y1="413" x2="760" y2="413"/><line x1="745" y1="427" x2="733" y2="445"/><line x1="745" y1="427" x2="757" y2="445"/></g>
+  <text x="745" y="463" class="aname">Admin</text>
+  <!-- Docencia -->
+  <g class="actor"><circle cx="745" cy="590" r="9"/><line x1="745" y1="599" x2="745" y2="624"/><line x1="730" y1="610" x2="760" y2="610"/><line x1="745" y1="624" x2="733" y2="642"/><line x1="745" y1="624" x2="757" y2="642"/></g>
+  <text x="745" y="660" class="aname">Docencia</text>
+  <!-- Docente (solo consulta) -->
+  <g class="actor"><circle cx="70" cy="580" r="9"/><line x1="70" y1="589" x2="70" y2="614"/><line x1="55" y1="600" x2="85" y2="600"/><line x1="70" y1="614" x2="58" y2="632"/><line x1="70" y1="614" x2="82" y2="632"/></g>
+  <text x="70" y="650" class="aname">Docente</text>
+  <text x="70" y="663" class="cap" text-anchor="middle">(solo consulta)</text>
+
+  <text x="40" y="685" class="cap">Herencia: cada actor superior hereda los del inferior. Docencia: programación académica + bloqueo de aulas. Docente: consulta, no reserva. Azul=operación · Ámbar=gestión · Rojo=solo Admin.</text>
+</svg>

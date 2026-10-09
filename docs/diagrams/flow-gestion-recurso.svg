@@ -1,0 +1,67 @@
+<svg width="100%" viewBox="0 0 700 580" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>Flujo: gestionar recursos del lab</title>
+  <desc>Guía para crear un laboratorio con sus recursos (mesas/PCs/equipos) o agregar/editar mesas y PCs de uno existente.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+    <style>
+    text{font-family:"system-ui", -apple-system,"system-ui","Segoe UI",sans-serif}
+    .start{fill:#E1F5EE;stroke:#0F6E56}
+    .proc{fill:#E6F1FB;stroke:#185FA5}
+    .dec{fill:#FDF1E3;stroke:#B5701E}
+    .err{fill:#FCEBEB;stroke:#A32D2D}
+    .fin{fill:#F1EFE8;stroke:#5F5E5A}
+    .tx{font-size:11.5px;fill:#16302b;text-anchor:middle}
+    .txp{font-size:11.5px;fill:#0C447C;text-anchor:middle}
+    .txd{font-size:11.5px;fill:#7A4A12;text-anchor:middle}
+    .txe{font-size:11px;fill:#791F1F;text-anchor:middle}
+    .txf{font-size:11.5px;fill:#3D3D3A;text-anchor:middle;font-weight:600}
+    .lbl{font-size:11px;fill:#3D3D3A;font-weight:600}
+    .edge{stroke:#73726C;stroke-width:1.5;fill:none}
+    .loop{stroke:#A32D2D;stroke-width:1.25;fill:none;stroke-dasharray:4 3}
+    </style>
+  </defs>
+  <text x="345" y="22" class="txf" style="font-size:15px">Gestionar recursos de un laboratorio</text>
+  <rect x="265" y="34" width="160" height="34" rx="16" class="start" stroke-width="1"/>
+  <text x="345" y="51.0" class="tx" dominant-baseline="central">Inicio</text>
+  <polygon points="345,96 463,134 345,172 227,134" class="dec" stroke-width="1"/>
+  <text x="345" y="130.0" class="txd" dominant-baseline="central">¿Tienes permiso sobre</text>
+<text x="345" y="144.0" class="txd" dominant-baseline="central">este laboratorio?</text>
+  <rect x="495" y="111" width="180" height="46" rx="9" class="err" stroke-width="1"/>
+  <text x="585" y="126.5" class="txe" dominant-baseline="central">Responsable: solo tus</text>
+<text x="585" y="141.5" class="txe" dominant-baseline="central">labs asignados (403)</text>
+  <line x1="463" y1="134" x2="493" y2="134" class="edge" marker-end="url(#arrow)"/>
+  <text x="479" y="128" class="lbl" text-anchor="middle">No</text>
+  <polygon points="345,198 505,238 345,278 185,238" class="dec" stroke-width="1"/>
+  <text x="345" y="234.0" class="txd" dominant-baseline="central">¿Crear un lab nuevo o</text>
+<text x="345" y="248.0" class="txd" dominant-baseline="central">gestionar uno existente?</text>
+  <line x1="345" y1="172" x2="345" y2="196" class="edge" marker-end="url(#arrow)"/>
+  <text x="353" y="189" class="lbl">Sí</text>
+
+  <rect x="40" y="330" width="290" height="66" rx="9" class="proc" stroke-width="1"/>
+  <text x="185" y="349.0" class="txp" dominant-baseline="central">Crear Lab (ventana flotante):</text>
+<text x="185" y="364.0" class="txp" dominant-baseline="central">define cantidad de mesas y PCs</text>
+<text x="185" y="379.0" class="txp" dominant-baseline="central">+ equipos especializados</text>
+  <path d="M185,238 L185,328" class="edge" marker-end="url(#arrow)"/>
+  <text x="160" y="300" class="lbl" text-anchor="middle">Crear</text>
+
+  <rect x="360" y="330" width="290" height="66" rx="9" class="proc" stroke-width="1"/>
+  <text x="505" y="349.0" class="txp" dominant-baseline="central">Lab existente: &#x27;+ Agregar recurso&#x27;</text>
+<text x="505" y="364.0" class="txp" dominant-baseline="central">(o editar): tipo mesa/PC, nombre,</text>
+<text x="505" y="379.0" class="txp" dominant-baseline="central">capacidad (cuadrícula 1–10)</text>
+  <path d="M505,238 L525,238 L525,328" class="edge" marker-end="url(#arrow)"/>
+  <text x="540" y="300" class="lbl" text-anchor="middle">Editar</text>
+
+  <rect x="265" y="440" width="160" height="42" rx="9" class="proc" stroke-width="1"/>
+  <text x="345" y="461.0" class="txp" dominant-baseline="central">Guarda los cambios</text>
+  <path d="M185,396 L185,420 L343,420" class="edge"/>
+  <path d="M505,396 L505,420 L347,420" class="edge"/>
+  <line x1="345" y1="420" x2="345" y2="438" class="edge" marker-end="url(#arrow)"/>
+
+  <rect x="255" y="510" width="180" height="34" rx="16" class="fin" stroke-width="1"/>
+  <text x="345" y="527.0" class="txf" dominant-baseline="central">Recurso(s) actualizado(s)</text>
+  <line x1="345" y1="68" x2="345" y2="94" class="edge" marker-end="url(#arrow)"/>
+  <line x1="345" y1="482" x2="345" y2="508" class="edge" marker-end="url(#arrow)"/>
+  <text x="40" y="572" style="font-size:10px;fill:#5F5E5A">Verde=inicio · Azul=acción · Ámbar=decisión · Rojo=corrección · Gris=fin</text>
+</svg>

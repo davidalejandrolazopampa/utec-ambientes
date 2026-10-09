@@ -1,0 +1,73 @@
+spring:
+  application:
+    name: utec-lab-reservation
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:local}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        jdbc:
+          time_zone: America/Lima
+          batch_size: 25
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    default-property-inclusion: non_null
+    time-zone: America/Lima
+
+server:
+  port: ${SERVER_PORT:8080}
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  error:
+    # Default seguro: no filtrar el mensaje de la excepción al cliente (CWE-209).
+    # El perfil 'local' puede reactivarlo (include-message: always) para depurar.
+    include-message: never
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,flyway
+
+app:
+  jwt:
+    # Sin valor por defecto: en cualquier entorno (incluido prod) JWT_SECRET es
+    # obligatorio. El perfil 'local' define un secreto de desarrollo en application-local.yml.
+    secret: ${JWT_SECRET:}
+    access-expiration-ms: ${JWT_ACCESS_EXP:900000}
+    refresh-expiration-ms: ${JWT_REFRESH_EXP:604800000}
+  auth:
+    # La cookie del refresh token solo viaja por HTTPS en prod. En local (HTTP) debe
+    # ser false o el navegador no la guardará. application-prod.yml lo fuerza a true.
+    cookie-secure: ${COOKIE_SECURE:false}
+  frontend:
+    # URL base del frontend usada en los enlaces de check-in embebidos en los QR.
+    url: ${FRONTEND_URL:http://localhost:5173}
+  google:
+    client-id: ${GOOGLE_CLIENT_ID:}
+    allowed-domain: utec.edu.pe
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://localhost:5173,http://localhost:3000}
+  reservas:
+    checkin-timeout-minutos: 15
+    dias-anticipacion-max: 1

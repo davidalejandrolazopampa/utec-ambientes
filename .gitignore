@@ -1,0 +1,54 @@
+.env
+.env.local
+
+# Config local con secretos (usar application-local.yml.example como plantilla)
+backend/src/main/resources/application-local.yml
+
+# Backups de BD (snapshots locales, no versionar)
+db/backups/
+
+# Exports de Affluences con PII de alumnos (no versionar el CSV crudo)
+db/*.csv
+*Affluence*.csv
+
+.idea/
+*.iml
+.vscode/
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+frontend/node_modules/
+frontend/dist/
+frontend/dev-dist/
+frontend/.env.production
+# Proyectos nativos generados por Capacitor (`npx cap add`); se crean en la máquina con SDK.
+frontend/android/
+frontend/ios/
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+logs/
+frontend/coverage/
+docker-compose.override.yml
+
+# Salida generada por graphify (grafo de conocimiento local)
+graphify-out/
+
+# Claves / certificados / credenciales (defensivo: nunca versionar)
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+id_rsa
+id_ed25519
+credentials.json
+service-account*.json
+*-credentials.json
+
+# Python bytecode (ETL scripts en db/)
+__pycache__/
+*.pyc
+
+# Artefactos SQL generados por los ETL (db/etl/*.py)
+db/generated/

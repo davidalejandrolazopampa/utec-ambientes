@@ -1,0 +1,71 @@
+# ============================================================
+# Perfil LOCAL — PLANTILLA (copiar a application-local.yml y rellenar)
+#
+#   cp application-local.yml.example application-local.yml
+#
+# El archivo real (application-local.yml) está en .gitignore: NO subir secretos.
+# Las credenciales de BD/Redis/RabbitMQ son de contenedores locales desechables;
+# el App Password de Gmail SÍ es sensible: usa una variable de entorno o el .env raíz.
+# ============================================================
+spring:
+  datasource:
+    # stringtype=unspecified es necesario para los ENUM nativos de Postgres
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:utec_labs}?stringtype=unspecified
+    username: ${DB_USER:utec_admin}
+    password: ${DB_PASSWORD:utec_secret_2026}
+    hikari:
+      maximum-pool-size: 10
+  jpa:
+    show-sql: true
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:utec_redis_2026}
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER:utec_rabbit}
+    password: ${RABBITMQ_PASSWORD:utec_rabbit_2026}
+    virtual-host: ${RABBITMQ_VHOST:utec}
+  devtools:
+    restart:
+      enabled: true
+
+server:
+  error:
+    # En local sí mostramos el mensaje de la excepción para depurar
+    # (el default base es 'never' por seguridad — CWE-209).
+    include-message: always
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME:conceptlab@utec.edu.pe}
+    # ⚠️ App Password de Gmail (16 caracteres). NO lo escribas aquí en texto plano si
+    # este archivo se versiona. Exporta MAIL_PASSWORD o ponlo en application-local.yml (gitignored).
+    password: ${MAIL_PASSWORD:CAMBIAR_APP_PASSWORD_GMAIL}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    default-encoding: UTF-8
+
+logging:
+  level:
+    pe.edu.utec.reservas: DEBUG
+    org.hibernate.SQL: DEBUG
+
+app:
+  jwt:
+    # Mínimo 32 caracteres (256 bits). En prod es obligatorio vía JWT_SECRET.
+    # ⚠ GENERA EL TUYO (nunca uses este placeholder): openssl rand -base64 48
+    # (si arrancas con ./demo.sh, este ya genera y usa un JWT_SECRET aleatorio en logs/jwt-secret).
+    secret: ${JWT_SECRET:REEMPLAZA-ESTO-por-openssl-rand-base64-48-min-32-chars}
+  google:
+    # Client ID de Google Cloud Console (termina en .apps.googleusercontent.com)
+    client-id: ${GOOGLE_CLIENT_ID:CAMBIAR_GOOGLE_CLIENT_ID}
+  mail:
+    from: ${MAIL_USERNAME:conceptlab@utec.edu.pe}
+    from-name: UTEC Labs

@@ -1,0 +1,40 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:utec_labs_test}?stringtype=unspecified
+    username: ${DB_USER:utec_admin}
+    # CN-012: sin secreto hardcodeado. Default solo para la BD de test local;
+    # en CI se sobreescribe con la variable de entorno DB_PASSWORD.
+    password: ${DB_PASSWORD:utec_secret_2026}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    clean-disabled: false
+  mail:
+    host: localhost
+    port: 2525
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:utec_redis_2026}
+  # En tests el cacheado se desactiva (NoOpCacheManager): así @Cacheable de analytics
+  # NO conserva resultados entre casos (evita falsos positivos). En local/prod usa Redis.
+  cache:
+    type: none
+
+app:
+  jwt:
+    secret: test-jwt-secret-key-for-testing-purposes-must-be-long-enough
+    access-expiration-ms: 900000
+    refresh-expiration-ms: 604800000
+  google:
+    client-id: test-client-id
+    allowed-domain: utec.edu.pe
+  reservas:
+    checkin-timeout-minutos: 15
+    dias-anticipacion-max: 1

@@ -1,0 +1,19 @@
+version: 2
+updates:
+  # Mantiene actualizados los SHA de las GitHub Actions (pinneadas a commit)
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+
+  # Dependencias del backend (Maven)
+  - package-ecosystem: maven
+    directory: "/backend"
+    schedule:
+      interval: weekly
+
+  # Dependencias del frontend (npm)
+  - package-ecosystem: npm
+    directory: "/frontend"
+    schedule:
+      interval: weekly

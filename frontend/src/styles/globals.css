@@ -1,0 +1,225 @@
+/* Sustitutos web libres de la tipografía UTEC (Inter ≈ Stag Sans · Roboto Slab ≈ Adelle) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Slab:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Tokens semánticos: light por defecto, dark con .dark en <html> ── */
+:root {
+  --bg: #F7F9FB;
+  --surface: #FFFFFF;
+  --ink: #231F20;
+  --ink-muted: #5B5F63;
+  --line: #E6EAEE;
+  --sidebar: #231F20;
+  --sidebar-ink: #C8CDD3;
+  --danger: #E5484D;
+}
+.dark {
+  --bg: #0E1218;
+  --surface: #171C24;
+  --ink: #EEF2F6;
+  --ink-muted: #9BA3AD;
+  --line: #262D37;
+  --sidebar: #0B0E13;
+  --sidebar-ink: #9BA3AD;
+  --danger: #E5484D;
+}
+
+@layer base {
+  body {
+    @apply font-sans bg-bg text-ink antialiased;
+  }
+  /* Números tabulares para KPIs/tablas (no bailan las columnas) */
+  .tabular { font-variant-numeric: tabular-nums; }
+}
+
+@layer components {
+  /* Botón principal: fondo cyan, texto blanco, hover negro (manual pág. 13) */
+  .btn-primary {
+    @apply bg-utec-cyan text-white px-6 py-2.5 rounded-lg font-medium
+    transition-colors duration-200 hover:bg-utec-dark
+    focus:outline-none focus:ring-2 focus:ring-utec-cyan focus:ring-offset-2;
+  }
+
+  /* Botón secundario: transparente, border negro, hover gris claro */
+  .btn-secondary {
+    @apply bg-transparent text-utec-dark border border-utec-dark px-6 py-2.5
+    rounded-lg font-medium transition-colors duration-200
+    hover:bg-utec-gray-50 focus:outline-none focus:ring-2
+    focus:ring-utec-dark focus:ring-offset-2;
+  }
+
+  /* Botón danger */
+  .btn-danger {
+    @apply bg-red-600 text-white px-6 py-2.5 rounded-lg font-medium
+    transition-colors duration-200 hover:bg-red-700
+    focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2;
+  }
+
+  /* Input con focus glow cyan */
+  .input-field {
+    @apply w-full px-4 py-2.5 border border-line rounded-lg bg-surface
+    font-sans text-ink placeholder:text-ink-muted
+    focus:outline-none focus:ring-2 focus:ring-utec-cyan
+    focus:border-transparent transition-all duration-200;
+  }
+
+  /* Cards: diseño serio, flat, corporativo (tokens light/dark) */
+  .card {
+    @apply bg-surface rounded-xl border border-line p-6
+    shadow-sm hover:shadow-md transition-shadow duration-200;
+  }
+
+  /* Item de navegación del sidebar */
+  .nav-item {
+    @apply flex items-center gap-3 px-3 h-10 rounded-lg text-sm font-medium
+    text-sidebar-ink transition-colors hover:text-white hover:bg-white/5;
+  }
+  .nav-item-active {
+    @apply text-white bg-white/[0.06];
+  }
+
+  /* Badge base */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+}
+
+/* ── Hoja imprimible de QR de mesas (oculta en pantalla; 6 por hoja A4 al imprimir) ── */
+.qr-print-sheet { display: none; }
+
+/* ── Reporte ejecutivo one-pager (oculto en pantalla; se imprime a PDF) ── */
+.reporte-ejecutivo-sheet { display: none; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   CAPA DE COMPATIBILIDAD DARK MODE — dos partes con destinos distintos:
+
+   1) NEUTRALES (bg-white/gray, text-utec-dark/gray, border-gray): migrables a
+      tokens semánticos (bg-surface/bg, text-ink/ink-muted, border-line) por
+      componente. OJO: los tokens en LIGHT no son idénticos a las clases
+      Tailwind (p.ej. --ink-muted #5B5F63 ≠ text-gray-600 #4B5563; --line
+      #E6EAEE ≠ border-gray-100), así que migrar cambia sutilmente el modo
+      claro → requiere QA visual en navegador (light + dark) por pantalla.
+      Trabajo abierto (P2), NO mecánico.
+
+   2) TINTES DE COLOR de estado (bg-red-100/green-50…, text-red-700…): son el
+      patrón CORRECTO para badges/pills semánticos en dark. Quitarlos obligaría
+      a poner variantes dark: en cientos de badges → PEOR mantenibilidad. Esta
+      parte se QUEDA por diseño (no es deuda).
+
+   Selectores .dark .x ganan por especificidad, sin !important.
+   ───────────────────────────────────────────────────────────────────────── */
+.dark .bg-white { background-color: var(--surface); }
+.dark .bg-utec-gray-50 { background-color: var(--bg); }
+.dark .bg-gray-50,
+.dark .bg-gray-100,
+.dark .bg-utec-gray-100 { background-color: rgba(255, 255, 255, 0.04); }
+.dark .bg-gray-200, .dark .hover\:bg-gray-200:hover { background-color: rgba(255, 255, 255, 0.08); }
+.dark .bg-slate-200 { background-color: rgba(255, 255, 255, 0.06); }
+
+.dark .text-utec-dark,
+.dark .text-gray-900,
+.dark .text-gray-800 { color: var(--ink); }
+.dark .text-utec-gray-200,
+.dark .text-gray-700,
+.dark .text-gray-600,
+.dark .text-gray-500,
+.dark .text-gray-400,
+.dark .text-slate-600 { color: var(--ink-muted); }
+
+.dark .border-utec-gray-50,
+.dark .border-utec-gray-100,
+.dark .border-utec-gray-200,
+.dark .border-gray-100,
+.dark .border-gray-200,
+.dark .border-gray-300 { border-color: var(--line); }
+
+/* ── Dark mode para tintes de ACENTO (badges/chips/cards de color suave) ──
+   Los bg-*-50/100 son claros y "brillan" sobre fondo oscuro; se remapean a
+   translúcidos y el texto de color se aclara para que lea sobre oscuro. ── */
+.dark .bg-green-50, .dark .bg-green-100, .dark .bg-emerald-50, .dark .bg-emerald-100 { background: rgba(52, 168, 83, 0.22); }
+.dark .bg-red-50, .dark .bg-red-100, .dark .bg-rose-50, .dark .bg-rose-100 { background: rgba(229, 72, 77, 0.22); }
+.dark .bg-amber-50, .dark .bg-amber-100, .dark .bg-yellow-50, .dark .bg-yellow-100 { background: rgba(251, 188, 5, 0.22); }
+.dark .bg-purple-50, .dark .bg-purple-100, .dark .bg-indigo-50, .dark .bg-indigo-100 { background: rgba(124, 58, 237, 0.22); }
+.dark .bg-blue-50, .dark .bg-blue-100, .dark .bg-sky-50, .dark .bg-sky-100 { background: rgba(1, 94, 234, 0.22); }
+.dark .bg-orange-50, .dark .bg-orange-100 { background: rgba(230, 126, 34, 0.22); }
+.dark .bg-teal-50, .dark .bg-teal-100 { background: rgba(13, 148, 136, 0.22); }
+
+.dark .text-green-600, .dark .text-green-700, .dark .text-green-800, .dark .text-emerald-600, .dark .text-emerald-700 { color: #4ade80; }
+.dark .text-red-600, .dark .text-red-700, .dark .text-red-800, .dark .text-rose-600, .dark .text-rose-700 { color: #f87171; }
+.dark .text-amber-600, .dark .text-amber-700, .dark .text-amber-800, .dark .text-yellow-700 { color: #fbbf24; }
+.dark .text-purple-600, .dark .text-purple-700, .dark .text-indigo-600, .dark .text-indigo-700 { color: #a78bfa; }
+.dark .text-blue-600, .dark .text-blue-700, .dark .text-sky-600, .dark .text-sky-700 { color: #60a5fa; }
+.dark .text-orange-600, .dark .text-orange-700 { color: #fb923c; }
+.dark .text-teal-600, .dark .text-teal-700 { color: #2dd4bf; }
+
+.dark .border-green-100, .dark .border-green-200, .dark .border-emerald-100, .dark .border-emerald-200 { border-color: rgba(52, 168, 83, 0.3); }
+.dark .border-red-100, .dark .border-red-200, .dark .border-rose-100, .dark .border-rose-200 { border-color: rgba(229, 72, 77, 0.3); }
+.dark .border-amber-100, .dark .border-amber-200, .dark .border-yellow-200 { border-color: rgba(251, 188, 5, 0.3); }
+.dark .border-purple-100, .dark .border-purple-200, .dark .border-indigo-200 { border-color: rgba(124, 58, 237, 0.3); }
+.dark .border-blue-100, .dark .border-blue-200, .dark .border-sky-200 { border-color: rgba(1, 94, 234, 0.3); }
+.dark .border-orange-100, .dark .border-orange-200 { border-color: rgba(230, 126, 34, 0.3); }
+
+/* ── Dark mode para Recharts (gráficas del dashboard) ──
+   Recharts pinta el SVG con colores fijos por props/defaults que las clases
+   Tailwind del shim no alcanzan: los valores de eje usan #666 (casi negro sobre
+   fondo oscuro → ilegibles), la grilla es gris claro y el tooltip es blanco.
+   Los atributos de presentación SVG (fill/stroke) tienen menor prioridad que CSS,
+   así que estas reglas los sobreescriben sin !important (salvo el tooltip, inline). */
+.dark .recharts-cartesian-axis-tick-value { fill: var(--ink-muted); }
+.dark .recharts-cartesian-axis-line,
+.dark .recharts-cartesian-axis-tick-line { stroke: var(--line); }
+.dark .recharts-cartesian-grid line { stroke: var(--line); }
+.dark .recharts-legend-item-text { color: var(--ink) !important; }
+.dark .recharts-default-tooltip { background-color: var(--surface) !important; border-color: var(--line) !important; }
+.dark .recharts-tooltip-label { color: var(--ink) !important; }
+/* (los .recharts-tooltip-item conservan el color de su serie, legible sobre oscuro) */
+
+@media print {
+  /* La hoja se monta como hijo directo de <body> (portal): ocultamos todo lo demás
+     y la mostramos en flujo normal para que pagine limpio (sin cortes).
+     Se desactiva cuando se imprime el reporte ejecutivo (body.printing-reporte). */
+  body:not(.printing-reporte) > *:not(.qr-print-sheet) { display: none !important; }
+  .qr-print-sheet { display: block !important; }
+
+  /* ── Reporte ejecutivo (one-pager): también se monta como portal en <body>.
+     Al imprimirlo, solo su hoja queda visible. ── */
+  body.printing-reporte > *:not(.reporte-ejecutivo-sheet) { display: none !important; }
+  body.printing-reporte .reporte-ejecutivo-sheet { display: block !important; }
+
+  .qr-print-page {
+    box-sizing: border-box;
+    padding: 9mm;                 /* margen interno (el @page va sin margen para evitar encabezado) */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6mm;
+    page-break-after: always;
+  }
+  .qr-print-page:last-child { page-break-after: auto; }
+
+  .qr-print-card {
+    height: 82mm;                 /* 3 filas × 82 + gaps + padding caben holgado en A4 */
+    box-sizing: border-box;
+    border: 2px solid #00BFFF;
+    border-radius: 10px;
+    padding: 3mm;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5mm;
+    text-align: center;
+    overflow: hidden;
+    break-inside: avoid;
+  }
+  .qr-print-card svg { width: 30mm !important; height: 30mm !important; }
+  .qr-print-logo { width: 18mm; height: auto; }
+  .qr-print-lab { font-size: 9pt; color: #8F8F8F; margin: 0; }
+  .qr-print-mesa { font-size: 15pt; font-weight: 700; color: #231F20; margin: 0; }
+  .qr-print-foot { font-size: 8pt; color: #00BFFF; font-weight: 700; margin: 0; }
+
+  /* margin:0 → Chrome no agrega el encabezado/pie (URL, fecha, título) que cortaba el contenido */
+  @page { size: A4 portrait; margin: 0; }
+}

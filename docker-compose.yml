@@ -1,0 +1,150 @@
+# ============================================================
+# UTEC Lab Reservation System - Docker Compose (Full Stack)
+# ============================================================
+
+services:
+
+  # ── Base de Datos (PostgreSQL) ─────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: utec-postgres
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      POSTGRES_DB: ${DB_NAME:-utec_labs}
+      POSTGRES_USER: ${DB_USER:-utec_admin}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD es obligatorio (definir en .env)}
+    ports:
+      # Solo accesible desde el host local; no se publica a toda la red.
+      - "127.0.0.1:${DB_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-utec_admin} -d ${DB_NAME:-utec_labs}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - utec-network
+
+  # ── Caché (Redis) ───────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: utec-redis
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    command: redis-server --requirepass ${REDIS_PASSWORD:?REDIS_PASSWORD es obligatorio (definir en .env)} --maxmemory 256mb --maxmemory-policy allkeys-lru
+    ports:
+      - "127.0.0.1:${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:?REDIS_PASSWORD es obligatorio (definir en .env)}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - utec-network
+
+  # ── Mensajería (RabbitMQ) ───────────────────────────────────
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    container_name: utec-rabbitmq
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-utec_rabbit}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:?RABBITMQ_PASSWORD es obligatorio (definir en .env)}
+      RABBITMQ_DEFAULT_VHOST: ${RABBITMQ_VHOST:-utec}
+    ports:
+      # AMQP y consola de gestión (15672) solo en el host local, nunca expuestas a la red.
+      - "127.0.0.1:${RABBITMQ_PORT:-5672}:5672"
+      - "127.0.0.1:${RABBITMQ_MGMT_PORT:-15672}:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_running"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+    networks:
+      - utec-network
+
+  # ── API Servidor (Backend Java) ─────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: utec-backend
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${DB_NAME:-utec_labs}
+      SPRING_DATASOURCE_USERNAME: ${DB_USER:-utec_admin}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:?DB_PASSWORD es obligatorio (definir en .env)}
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      SPRING_DATA_REDIS_PASSWORD: ${REDIS_PASSWORD:?REDIS_PASSWORD es obligatorio (definir en .env)}
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: ${RABBITMQ_USER:-utec_rabbit}
+      SPRING_RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD:?RABBITMQ_PASSWORD es obligatorio (definir en .env)}
+      SPRING_RABBITMQ_VIRTUAL_HOST: ${RABBITMQ_VHOST:-utec}
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET es obligatorio (generar con: openssl rand -base64 48)}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      # URL del frontend para los enlaces de check-in en los QR. En prod, el dominio real.
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:5173}
+    ports:
+      - "${BACKEND_PORT:-8080}:8080"
+    volumes:
+      - ./backend:/app
+      - maven_cache:/root/.m2
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - utec-network
+
+  # ── Aplicación Web (Frontend React) ─────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: utec-frontend
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      # Apunta al contenedor 'backend' dentro de la red interna de Docker
+      VITE_API_URL: http://backend:8080/api/v1
+      # Inyecta el Client ID para resolver el error de "Google Client ID no configurado"
+      VITE_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+    ports:
+      - "${FRONTEND_PORT:-5173}:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - utec-network
+
+volumes:
+  postgres_data:
+  redis_data:
+  rabbitmq_data:
+  maven_cache:
+
+networks:
+  utec-network:
+    driver: bridge
+    name: utec-labs-network
