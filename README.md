@@ -45,6 +45,15 @@
 <td width="33%" valign="top"><img src="docs/manuales/manual-img/ad-06-organizacion.png" alt="Organización académica"><br><sub><b>Organización</b> · jerarquía académica y personas</sub></td>
 </tr>
 </table>
+
+**🌙 También en modo oscuro**
+
+<table>
+<tr>
+<td width="50%" valign="top"><img src="docs/manuales/manual-img/dark-01-dashboard.png" alt="Dashboard en modo oscuro"><br><sub><b>Dashboard analítico</b> · tema oscuro</sub></td>
+<td width="50%" valign="top"><img src="docs/manuales/manual-img/dark-02-calendario.png" alt="Calendario en modo oscuro"><br><sub><b>Calendario académico</b> · tema oscuro</sub></td>
+</tr>
+</table>
 </div>
 
 > Recorrido ilustrado paso a paso en los manuales: **[Alumno](docs/manuales/15a-manual-alumnos.md)** · **[Administrativo](docs/manuales/15b-manual-administrativos.md)**.
