@@ -2,18 +2,52 @@
 
 # 🏛️ UTEC Ambientes
 
-**Plataforma de gestión, reserva y control de acceso a ambientes académicos** (laboratorios, aulas, auditorios y salas)
-Universidad de Ingeniería y Tecnología (UTEC) · Lima, Perú
-<sub>(repositorio: `utec-ambientes`)</sub>
+### Reserva de laboratorios y aulas · Check-in por QR · Horario académico · Analítica BI
+
+**Plataforma full-stack que cubre el ciclo de vida completo de los ambientes académicos de la Universidad de Ingeniería y Tecnología (UTEC)** — de la reserva del estudiante hasta el dashboard ejecutivo de dirección.
+
+<sub>Lima, Perú · monolito modular Spring Boot + SPA React</sub>
+
+<br>
 
 ![Java](https://img.shields.io/badge/Java-21-orange?logo=openjdk&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.5.14-6DB33F?logo=springboot&logoColor=white)
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?logo=postgresql&logoColor=white)
-![Backend Coverage](https://img.shields.io/badge/Backend_cov-94%25-success)
-![Frontend Coverage](https://img.shields.io/badge/Frontend_cov-85%25-success)
+![Docker](https://img.shields.io/badge/Docker-compose-2496ED?logo=docker&logoColor=white)
+<br>
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Backend Coverage](https://img.shields.io/badge/backend_cov-~94%25-success?logo=openjdk&logoColor=white)
+![Frontend Coverage](https://img.shields.io/badge/frontend_cov-~85%25-success?logo=vitest&logoColor=white)
+![Tests](https://img.shields.io/badge/tests-passing-success)
+
+<br>
+
+<img src="docs/manuales/manual-img/dash-00-kpis.png" alt="Dashboard de analítica de UTEC Ambientes" width="840">
 
 </div>
+
+---
+
+## ✨ Vistazo
+
+<div align="center">
+<table>
+<tr>
+<td width="33%" valign="top"><img src="docs/manuales/manual-img/al-01-laboratorios.png" alt="Listado de laboratorios"><br><sub><b>Laboratorios</b> · búsqueda, filtros y disponibilidad en vivo</sub></td>
+<td width="33%" valign="top"><img src="docs/manuales/manual-img/al-02-detalle-grid.png" alt="Reserva de mesa"><br><sub><b>Reserva de mesa</b> · grilla de recursos y horarios</sub></td>
+<td width="33%" valign="top"><img src="docs/manuales/manual-img/al-07-calendario.png" alt="Calendario académico"><br><sub><b>Calendario académico</b> · clases, reservas y bloqueos</sub></td>
+</tr>
+<tr>
+<td width="33%" valign="top"><img src="docs/manuales/manual-img/ad-02-detalle-qr.png" alt="Check-in por QR"><br><sub><b>Check-in por QR</b> · validación de uso presencial</sub></td>
+<td width="33%" valign="top"><img src="docs/manuales/manual-img/dash-03-mapacalor.png" alt="Heatmap de ocupación"><br><sub><b>Heatmap de ocupación</b> · banda de saturación</sub></td>
+<td width="33%" valign="top"><img src="docs/manuales/manual-img/ad-09-programacion.png" alt="Programación académica"><br><sub><b>Programación académica</b> · import de horarios y aulas</sub></td>
+</tr>
+</table>
+</div>
+
+> Recorrido ilustrado paso a paso en los manuales: **[Alumno](docs/manuales/15a-manual-alumnos.md)** · **[Administrativo](docs/manuales/15b-manual-administrativos.md)**.
 
 ---
 
@@ -36,6 +70,17 @@ Universidad de Ingeniería y Tecnología (UTEC) · Lima, Perú
 ## 1. Descripción
 
 Sistema que cubre el ciclo de vida completo de los **ambientes** académicos (laboratorios y aulas/auditorios/salas): configuración de espacios y recursos, **reserva** por parte de estudiantes, **check-in por QR**, **bloqueos** administrativos (de labs **y** aulas), **horario de clases y calendario académico**, **notificaciones** automáticas y **analítica (BI)**, todo sobre la jerarquía organizacional real de la universidad (Facultad → Departamento → Laboratorio → Responsable).
+
+### 🎯 Lo esencial de un vistazo
+
+- 📅 **Reservas** de mesas/PCs con control de concurrencia a nivel de BD y participantes por correo @utec.
+- 📷 **Check-in por QR** (o manual) con ventana de tiempo para validar el uso presencial.
+- 🧱 **Bloqueos y eventos** totales o parciales, en laboratorios y aulas, con import masivo desde Excel/CSV.
+- 🗓️ **Horario académico y calendario** por ciclo (clases + reservas + bloqueos) sobre el calendario real de UTEC.
+- 📊 **Dashboard BI** con KPIs, heatmap, modelo de ocupación OEE, Pareto de carreras y reporte ejecutivo a PDF.
+- 🔐 **Google SSO + JWT + RBAC** de 6 roles, con autorización en triple capa (ruta · método · propiedad, anti-IDOR).
+- ⚡ **Tiempo real por SSE**, correos HTML asíncronos y scheduler con lock distribuido (ShedLock).
+- 🧪 **~560 tests** (backend + frontend) con *ratchet* de cobertura — ~94% backend · ~85% frontend.
 
 ### Funcionalidades principales
 
